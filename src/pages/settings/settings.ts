@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angular';
+import { SettingsProvider } from '../../providers/settings/settings';
 import { HomePage } from '../home/home';
 
 
@@ -23,7 +24,8 @@ export class SettingsPage implements OnInit {
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              public alertCtrl: AlertController) {
+              public alertCtrl: AlertController,
+              private settingsProvider: SettingsProvider) {
   }
 
   ngOnInit(): void {
@@ -57,9 +59,8 @@ export class SettingsPage implements OnInit {
          this.noCityAlert();
          this.settingsForm.controls.city.setValue('Galway');
          this.navCtrl.push(HomePage);
+         this.settingsProvider.sendRequest = true;
     }
-
-    console.log(this.settingsForm);
   }
 
   async noDataAlert(){

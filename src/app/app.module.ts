@@ -10,6 +10,7 @@ import { HomePage } from '../pages/home/home';
 import { SettingsPage } from '../pages/settings/settings';
 
 import { BookmarksStorageProvider } from '../providers/bookmarks-storage/bookmarks-storage';
+import { SettingsProvider } from '../providers/settings/settings';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import { BookmarksStorageProvider } from '../providers/bookmarks-storage/bookmar
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     BookmarksStorageProvider,
+    SettingsProvider,
   ]
 })
 export class AppModule {}
