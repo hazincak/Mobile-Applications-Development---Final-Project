@@ -6,10 +6,54 @@
 -->
 <ion-header>
   <ion-navbar>
-    <ion-title>settings</ion-title>
+    <ion-title>Settings</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
+  <form [formGroup]="settingsForm" (ngSubmit)="onSubmit()">
+    <ion-grid>
+      <ion-row>
+        <ion-col col-12>
+          <ion-searchbar
+            placeholder="Enter your city"
+            formControlName="city"
+            ></ion-searchbar>
+          <ion-list>
+            <ion-item>
 
+            </ion-item>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12>
+          <ion-list radio-group formControlName="temperatureUnit">
+            <ion-list-header>
+              Temperature units
+            </ion-list-header>
+            <ion-item>
+              <ion-label>Standard</ion-label>
+              <ion-radio value="standard"></ion-radio>
+            </ion-item>
+
+            <ion-item>
+              <ion-label>Metric</ion-label>
+              <ion-radio value="metric"></ion-radio>
+            </ion-item>
+
+            <ion-item>
+              <ion-label>Imperial</ion-label>
+              <ion-radio value="imperial"></ion-radio>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12>
+          <button type="submit" ion-button block color="primary" [disabled]="this.settingsForm.invalid">SAVE</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
 </ion-content>

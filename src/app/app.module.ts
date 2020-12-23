@@ -5,28 +5,33 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
+
 import { HomePage } from '../pages/home/home';
-import { SettingsSettingsServiceTsProvider } from '../providers/settings-settings-service-ts/settings-settings-service-ts';
+import { SettingsPage } from '../pages/settings/settings';
+
+import { BookmarksStorageProvider } from '../providers/bookmarks-storage/bookmarks-storage';
 
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    HomePage,
+    SettingsPage,
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    HomePage,
+    SettingsPage,
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    SettingsSettingsServiceTsProvider
+    BookmarksStorageProvider
   ]
 })
 export class AppModule {}

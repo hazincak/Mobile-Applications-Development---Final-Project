@@ -16,7 +16,13 @@
 // automatically applied to the <body> element in the app.
 
 
+.icon{
+  &--large{
+    font-size: 180px;
+  }
 
+
+}
 
 // .toolbar-background{
 //   background-color: #134e5e;
