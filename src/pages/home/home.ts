@@ -14,6 +14,10 @@ export class HomePage {
 
   }
 
+  ionViewDidLoad() {
+
+  }
+
   onSettingsIconClick(){
     this.navCtrl.push(SettingsPage);
   }

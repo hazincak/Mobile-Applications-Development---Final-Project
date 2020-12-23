@@ -51,7 +51,7 @@
       </ion-row>
       <ion-row>
         <ion-col col-12>
-          <button type="submit" ion-button block color="primary" [disabled]="this.settingsForm.invalid">SAVE</button>
+          <button type="submit" ion-button block color="primary" [disabled]="this.settingsForm.controls.temperatureUnit.untouched">SAVE</button>
         </ion-col>
       </ion-row>
     </ion-grid>

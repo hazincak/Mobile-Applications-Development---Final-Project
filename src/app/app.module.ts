@@ -11,6 +11,7 @@ import { SettingsPage } from '../pages/settings/settings';
 
 import { BookmarksStorageProvider } from '../providers/bookmarks-storage/bookmarks-storage';
 
+
 @NgModule({
   declarations: [
     MyApp,
@@ -31,7 +32,7 @@ import { BookmarksStorageProvider } from '../providers/bookmarks-storage/bookmar
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    BookmarksStorageProvider
+    BookmarksStorageProvider,
   ]
 })
 export class AppModule {}
