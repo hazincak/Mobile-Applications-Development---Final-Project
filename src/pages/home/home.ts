@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { Observable } from 'rxjs/Observable';
-import { HttpRequestsProvider } from '../../providers/WeatherRequests.provider/WeatherRequests.provider';
-import { SettingsProvider } from '../../providers/settings-provider/settings.provider';
+import { WeatherRequestProvider } from '../../providers/weather-request.provider/weather-request.provider';
+import { SettingsProvider } from '../../providers/settings.provider/settings.provider';
 import { SettingsPage } from '../settings/settings';
-import {Settings} from '../settings/settings.model';
+import { NewsRequestProvider } from '../../providers/news-request/news-request';
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -14,13 +13,21 @@ import {Settings} from '../settings/settings.model';
 export class HomePage {
   sendRequest: boolean;
   dataLoaded: boolean = false;
+
   fetchedWeatherData: any;
   city: string = null;
   temperatureUnit: string = null;
+  countryCode: string = null;
+
+  fetchedNewsData: any;
+  articles: any;
+
+
 
   constructor(public navCtrl: NavController,
               private settingsProvider: SettingsProvider,
-              private httpRequestsProvider: HttpRequestsProvider) {
+              private weatherRequestProvider: WeatherRequestProvider,
+              private newsRequestProvider: NewsRequestProvider ) {
 
   }
 
@@ -43,12 +50,20 @@ export class HomePage {
   }
 
    fetchData(city: string, temperatureUnit: string){
-    this.httpRequestsProvider.fetchWeatherData(city, temperatureUnit).subscribe(data => {
+    this.weatherRequestProvider.fetchWeatherData(city, temperatureUnit).subscribe(data => {
       this.fetchedWeatherData = data;
       console.log(this.fetchedWeatherData);
+      this.countryCode = this.fetchedWeatherData.sys.country;
+      console.log(this.countryCode);
       this.dataLoaded= true;
     });
-
+  }
+  onNewsButtonClick(){
+    this.newsRequestProvider.fetchNewsData(this.countryCode).subscribe(data => {
+      this.fetchedNewsData = data;
+      this.articles = this.fetchedNewsData.articles;
+      console.log(this.fetchedNewsData)
+    })
   }
 
 

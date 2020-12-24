@@ -9,10 +9,11 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { SettingsPage } from '../pages/settings/settings';
 
-import { SettingsProvider } from '../providers/settings-provider/settings.provider';
+import { SettingsProvider } from '../providers/settings.provider/settings.provider';
 import { IonicStorageModule } from '@ionic/storage';
-import { HttpRequestsProvider } from '../providers/WeatherRequests.provider/WeatherRequests.provider';
+import { WeatherRequestProvider } from '../providers/weather-request.provider/weather-request.provider';
 import { HttpClientModule } from '@angular/common/http';
+import { NewsRequestProvider } from '../providers/news-request/news-request';
 
 
 
@@ -39,7 +40,8 @@ import { HttpClientModule } from '@angular/common/http';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     SettingsProvider,
-    HttpRequestsProvider,
+    WeatherRequestProvider,
+    NewsRequestProvider
   ]
 })
 export class AppModule {}

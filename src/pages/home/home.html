@@ -25,11 +25,23 @@
 
       </ion-col>
     </ion-row>
-    <hr>
+    <ion-row *ngIf="fetchedNewsData!==0">
+      <ion-col col-md-6 offset-md-3>
+        <ion-list>
+          <ion-item *ngFor="let item of articles">
+            <ion-avatar item-start>
+              <img src = {{item.urlToImage}}>
+            </ion-avatar>
+            <h2>{{item.title}}</h2>
+            <p>{{item.description}}</p>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
     <ion-row>
       <ion-col col-md-6 offset-md-3 text-center>
-        <button ion-button block color="dark" [disabled]="!dataLoaded" outline>News</button>
-    </ion-col>
+        <button ion-button block color="dark" (click)="onNewsButtonClick()" [disabled]="!dataLoaded" outline>News</button>
+      </ion-col>
     </ion-row>
   </ion-grid>
 </ion-content>

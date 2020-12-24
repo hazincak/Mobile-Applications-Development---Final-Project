@@ -8,7 +8,7 @@ import { Injectable } from '@angular/core';
   and Angular DI.
 */
 @Injectable()
-export class HttpRequestsProvider {
+export class WeatherRequestProvider {
 
   constructor(public http: HttpClient) {
     console.log('Hello HttpRequestsProvider Provider');
