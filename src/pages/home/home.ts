@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Observable } from 'rxjs/Observable';
-import { HttpRequestsProvider } from '../../providers/http-requests/http-requests';
+import { HttpRequestsProvider } from '../../providers/WeatherRequests.provider/WeatherRequests.provider';
 import { SettingsProvider } from '../../providers/settings-provider/settings.provider';
 import { SettingsPage } from '../settings/settings';
 import {Settings} from '../settings/settings.model';
@@ -14,7 +14,7 @@ import {Settings} from '../settings/settings.model';
 export class HomePage {
   sendRequest: boolean;
   dataLoaded: boolean = false;
-  fetchedWeatherData: Object;
+  fetchedWeatherData: any;
   city: string = null;
   temperatureUnit: string = null;
 
@@ -46,6 +46,7 @@ export class HomePage {
     this.httpRequestsProvider.fetchWeatherData(city, temperatureUnit).subscribe(data => {
       this.fetchedWeatherData = data;
       console.log(this.fetchedWeatherData);
+      this.dataLoaded= true;
     });
 
   }

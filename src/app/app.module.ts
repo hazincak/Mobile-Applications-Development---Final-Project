@@ -11,7 +11,7 @@ import { SettingsPage } from '../pages/settings/settings';
 
 import { SettingsProvider } from '../providers/settings-provider/settings.provider';
 import { IonicStorageModule } from '@ionic/storage';
-import { HttpRequestsProvider } from '../providers/http-requests/http-requests';
+import { HttpRequestsProvider } from '../providers/WeatherRequests.provider/WeatherRequests.provider';
 import { HttpClientModule } from '@angular/common/http';
 
 

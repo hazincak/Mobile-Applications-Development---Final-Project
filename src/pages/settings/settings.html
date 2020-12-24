@@ -14,7 +14,7 @@
   <form [formGroup]="settingsForm" (ngSubmit)="onSubmit()">
     <ion-grid>
       <ion-row>
-        <ion-col col-12>
+        <ion-col col-md-6 offset-md-3>
           <ion-searchbar
             placeholder="Enter your city"
             formControlName="city"
@@ -27,7 +27,7 @@
         </ion-col>
       </ion-row>
       <ion-row>
-        <ion-col col-12>
+        <ion-col col-md-6 offset-md-3>
           <ion-list radio-group formControlName="temperatureUnit">
             <ion-list-header>
               Temperature units
@@ -50,7 +50,7 @@
         </ion-col>
       </ion-row>
       <ion-row>
-        <ion-col col-12>
+        <ion-col col-md-6 offset-md-3>
           <button type="submit" ion-button block color="primary" [disabled]="this.settingsForm.controls.temperatureUnit.untouched">SAVE</button>
         </ion-col>
       </ion-row>
