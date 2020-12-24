@@ -1,26 +1,40 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { SettingsProvider } from '../../providers/settings/settings';
+import { Observable } from 'rxjs/Observable';
+import { HttpRequestsProvider } from '../../providers/http-requests/http-requests';
+import { SettingsProvider } from '../../providers/settings-provider/settings.provider';
 import { SettingsPage } from '../settings/settings';
-
+import {Settings} from '../settings/settings.model';
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
-export class HomePage {
 
+
+export class HomePage {
   sendRequest: boolean;
   dataLoaded: boolean = false;
+  fetchedWeatherData: Object;
+  city: string = null;
+  temperatureUnit: string = null;
 
   constructor(public navCtrl: NavController,
-              private settingsProvider: SettingsProvider) {
+              private settingsProvider: SettingsProvider,
+              private httpRequestsProvider: HttpRequestsProvider) {
 
   }
 
   ionViewDidEnter() {
     this.sendRequest = this.settingsProvider.sendRequest;
     if(this.sendRequest){
-      console.log('Fetching Data')
+        this.settingsProvider.getSettings().then((data) => {
+          this.city = data.city;
+          this.temperatureUnit = data.temperatureUnit;
+          this.fetchData(this.city, this.temperatureUnit);
+        });
+    }else if(this.city !== null && this.temperatureUnit !==null){
+      console.log('sending request')
+
     }
   }
 
@@ -28,6 +42,13 @@ export class HomePage {
     this.navCtrl.push(SettingsPage);
   }
 
+   fetchData(city: string, temperatureUnit: string){
+    this.httpRequestsProvider.fetchWeatherData(city, temperatureUnit).subscribe(data => {
+      this.fetchedWeatherData = data;
+      console.log(this.fetchedWeatherData);
+    });
+
+  }
 
 
 }

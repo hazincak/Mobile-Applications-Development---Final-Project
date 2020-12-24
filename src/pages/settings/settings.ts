@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angular';
-import { SettingsProvider } from '../../providers/settings/settings';
+import { SettingsProvider } from '../../providers/settings-provider/settings.provider';
 import { HomePage } from '../home/home';
 
 
@@ -34,7 +34,7 @@ export class SettingsPage implements OnInit {
 
       }),
       city: new FormControl(null, {
-        validators:[Validators.required]
+
       })
     })
 
@@ -60,6 +60,7 @@ export class SettingsPage implements OnInit {
          this.settingsForm.controls.city.setValue('Galway');
          this.navCtrl.push(HomePage);
          this.settingsProvider.sendRequest = true;
+         this.settingsProvider.storeSettings(this.settingsForm.controls.city.value, this.settingsForm.controls.temperatureUnit.value);
     }
   }
 

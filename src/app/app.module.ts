@@ -9,8 +9,11 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { SettingsPage } from '../pages/settings/settings';
 
-import { BookmarksStorageProvider } from '../providers/bookmarks-storage/bookmarks-storage';
-import { SettingsProvider } from '../providers/settings/settings';
+import { SettingsProvider } from '../providers/settings-provider/settings.provider';
+import { IonicStorageModule } from '@ionic/storage';
+import { HttpRequestsProvider } from '../providers/http-requests/http-requests';
+import { HttpClientModule } from '@angular/common/http';
+
 
 
 @NgModule({
@@ -22,6 +25,8 @@ import { SettingsProvider } from '../providers/settings/settings';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot(),
+    HttpClientModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -33,8 +38,8 @@ import { SettingsProvider } from '../providers/settings/settings';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    BookmarksStorageProvider,
     SettingsProvider,
+    HttpRequestsProvider,
   ]
 })
 export class AppModule {}

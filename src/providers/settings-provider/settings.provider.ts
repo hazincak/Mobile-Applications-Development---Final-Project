@@ -1,3 +1,4 @@
+import { Storage } from '@ionic/storage';
 import { Injectable } from '@angular/core';
 
 /*
@@ -11,8 +12,7 @@ export class SettingsProvider {
 
   private _sendRequest: boolean = false;
 
-  constructor() {
-    console.log();
+  constructor(public storage: Storage) {
   }
 
   get sendRequest(){
@@ -24,7 +24,12 @@ export class SettingsProvider {
   }
 
   storeSettings(city: String, temperatureUnit: String){
+    let storedSettings = {"city":city, "temperatureUnit":temperatureUnit}
+    this.storage.set('settings-json', storedSettings);
+  }
 
+  getSettings(){
+    return this.storage.get('settings-json');
   }
 
 }
