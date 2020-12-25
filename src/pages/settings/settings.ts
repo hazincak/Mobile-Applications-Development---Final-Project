@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angular';
+import { AlertController, IonicPage, LoadingController, NavController, NavParams } from 'ionic-angular';
 import { SettingsProvider } from '../../providers/settings.provider/settings.provider';
 import { HomePage } from '../home/home';
 
@@ -28,7 +28,8 @@ export class SettingsPage implements OnInit {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public alertCtrl: AlertController,
-              private settingsProvider: SettingsProvider) {
+              private settingsProvider: SettingsProvider,
+              private loadingCtrl: LoadingController) {
   }
 
   ngOnInit(): void {
@@ -60,15 +61,28 @@ export class SettingsPage implements OnInit {
   }
 
   onSubmit(){
-    if(this.settingsForm.controls.temperatureUnit.untouched){
+    const loader = this.loadingCtrl.create({
+      content: 'Saving data...',
+    });
+    loader.present();
+    if(!this.settingsForm.controls.temperatureUnit.dirty && !this.settingsForm.controls.city.dirty){
       return;
-    }else if(this.settingsForm.controls.city.untouched){
-         this.noCityAlert();
-         this.settingsForm.controls.city.setValue('Galway');
-         this.navCtrl.push(HomePage);
-         this.settingsProvider.settingsSet = true;
-         this.settingsProvider.storeSettings(this.settingsForm.controls.city.value, this.settingsForm.controls.temperatureUnit.value);
+    }else if(this.settingsForm.controls.city.untouched && this.city === null){
+      this.noCityAlert();
+      this.settingsForm.controls.city.setValue('Galway');
+      this.navCtrl.push(HomePage);
+      this.settingsProvider.settingsSet = true;
+      this.settingsProvider.storeSettings(this.settingsForm.controls.city.value, this.settingsForm.controls.temperatureUnit.value);
+    }else if(this.settingsForm.controls.city.touched){
+      this.navCtrl.push(HomePage);
+      this.settingsProvider.settingsSet = true;
+      this.settingsProvider.storeSettings(this.settingsForm.controls.city.value, this.settingsForm.controls.temperatureUnit.value);
+    }else if(this.settingsForm.controls.temperatureUnit.touched){
+      this.navCtrl.push(HomePage);
+      this.settingsProvider.settingsSet = true;
+      this.settingsProvider.storeSettings(this.city, this.settingsForm.controls.temperatureUnit.value);
     }
+    loader.dismiss();
   }
 
   async noDataAlert(){

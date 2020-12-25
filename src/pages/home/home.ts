@@ -30,7 +30,8 @@ export class HomePage {
               private settingsProvider: SettingsProvider,
               private weatherRequestProvider: WeatherRequestProvider,
               private newsRequestProvider: NewsRequestProvider,
-              private loadingCtrl: LoadingController ) {
+              private loadingCtrl: LoadingController
+               ) {
 
   }
 
@@ -42,6 +43,9 @@ export class HomePage {
     })
     .then(() => {
       this.fetchData(this.city, this.temperatureUnit);
+    })
+    .then(() => {
+
     });
   }
 
@@ -50,19 +54,27 @@ export class HomePage {
   }
 
   fetchData(city: string, temperatureUnit: string){
-    this.isLoading = true;
+    const loader = this.loadingCtrl.create({
+      content: 'Fetching data...',
+    });
+    loader.present();
     this.weatherRequestProvider.fetchWeatherData(city, temperatureUnit).subscribe(data => {
     this.fetchedWeatherData = data;
     this.countryCode = this.fetchedWeatherData.sys.country;
     this.dataLoaded= true;
-    this.isLoading = false;
+    loader.dismiss();
     });
   }
   onNewsButtonClick(){
+    const loader = this.loadingCtrl.create({
+      content: 'Fetching news...',
+    });
+    loader.present();
     this.newsRequestProvider.fetchNewsData(this.countryCode).subscribe(data => {
       this.fetchedNewsData = data;
       this.articles = this.fetchedNewsData.articles;
       console.log(this.fetchedNewsData)
     })
+    loader.dismiss();
   }
 }

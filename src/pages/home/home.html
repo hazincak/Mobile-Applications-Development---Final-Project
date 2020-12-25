@@ -53,12 +53,14 @@
     <ion-row *ngIf="fetchedNewsData!==0">
       <ion-col col-md-6 offset-md-3>
         <ion-list>
-          <ion-item *ngFor="let item of articles">
-            <ion-avatar item-start>
+          <ion-item text-wrap *ngFor="let item of articles">
+            <!-- <ion-thumbnail item-start>
               <img src = {{item.urlToImage}}>
-            </ion-avatar>
-            <h2>{{item.title}}</h2>
-            <p>{{item.description}}</p>
+            </ion-thumbnail> -->
+            <img item-start style="width: 150px; border-radius: 20px;" src = {{item.urlToImage}}>
+              <h2>{{item.title}}</h2>
+              <p>{{item.description}}</p>
+
           </ion-item>
         </ion-list>
       </ion-col>

@@ -17,6 +17,7 @@
         <ion-col col-md-6 offset-md-3>
           <ion-searchbar
             placeholder= "{{settingsSet ? city : 'Enter your city'}}"
+            autocomplete= "on"
             formControlName="city"
             ></ion-searchbar>
           <ion-list>
@@ -51,7 +52,11 @@
       </ion-row>
       <ion-row>
         <ion-col col-md-6 offset-md-3>
-          <button type="submit" ion-button block color="primary" [disabled]="this.settingsForm.controls.temperatureUnit.untouched">SAVE</button>
+          <button
+            type="submit"
+            ion-button block color="primary"
+            [disabled]="!this.settingsForm.controls.temperatureUnit.dirty && !this.settingsForm.controls.city.dirty"
+            >SAVE</button>
         </ion-col>
       </ion-row>
     </ion-grid>
