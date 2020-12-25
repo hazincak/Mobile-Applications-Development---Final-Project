@@ -62,6 +62,8 @@ export class HomePage {
     this.fetchedWeatherData = data;
     this.countryCode = this.fetchedWeatherData.sys.country;
     this.dataLoaded= true;
+    console.log(this.fetchedWeatherData)
+    console.log(this.fetchedWeatherData.weather[0]['icon'])
     loader.dismiss();
     });
   }

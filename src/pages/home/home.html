@@ -28,7 +28,7 @@
         </ion-row>
         <ion-row>
           <ion-col text-center>
-            <img src= 'http://openweathermap.org/img/wn/10d@2x.png' alt="Weather icon">
+            <img src= "http://openweathermap.org/img/wn/{{fetchedWeatherData.weather[0]['icon']}}@2x.png" alt="Weather icon">
           </ion-col>
         </ion-row>
         <ion-row>
@@ -54,9 +54,6 @@
       <ion-col col-md-6 offset-md-3>
         <ion-list>
           <ion-item text-wrap *ngFor="let item of articles">
-            <!-- <ion-thumbnail item-start>
-              <img src = {{item.urlToImage}}>
-            </ion-thumbnail> -->
             <img item-start style="width: 150px; border-radius: 20px;" src = {{item.urlToImage}}>
               <h2>{{item.title}}</h2>
               <p>{{item.description}}</p>
@@ -66,7 +63,7 @@
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-col col-md-6 offset-md-3 text-center>
+      <ion-col col-md-6 offset-md-3 text-center *ngIf="!fetchedNewsData">
         <button ion-button block color="dark" (click)="onNewsButtonClick()" [disabled]="!dataLoaded" outline>News</button>
       </ion-col>
     </ion-row>
