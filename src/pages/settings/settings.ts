@@ -21,6 +21,9 @@ import { HomePage } from '../home/home';
 export class SettingsPage implements OnInit {
 
   settingsForm: FormGroup;
+  settingsSet: boolean;
+  city: string;
+  temperatureUnit: string;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -41,7 +44,11 @@ export class SettingsPage implements OnInit {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad SettingsPage');
+    this.settingsProvider.getSettings().then((data) => {
+      this.settingsSet = data.settingsSet;
+      this.city = data.city;
+      this.temperatureUnit = data.temperatureUnit;
+  })
   }
 
   ionViewWillLeave(){
@@ -59,7 +66,7 @@ export class SettingsPage implements OnInit {
          this.noCityAlert();
          this.settingsForm.controls.city.setValue('Galway');
          this.navCtrl.push(HomePage);
-         this.settingsProvider.sendRequest = true;
+         this.settingsProvider.settingsSet = true;
          this.settingsProvider.storeSettings(this.settingsForm.controls.city.value, this.settingsForm.controls.temperatureUnit.value);
     }
   }

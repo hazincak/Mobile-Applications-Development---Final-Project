@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { LoadingController, NavController } from 'ionic-angular';
 import { WeatherRequestProvider } from '../../providers/weather-request.provider/weather-request.provider';
 import { SettingsProvider } from '../../providers/settings.provider/settings.provider';
 import { SettingsPage } from '../settings/settings';
@@ -11,8 +11,10 @@ import { NewsRequestProvider } from '../../providers/news-request/news-request';
 
 
 export class HomePage {
-  sendRequest: boolean;
+  settingsSet: boolean;
   dataLoaded: boolean = false;
+
+  isLoading : boolean = false;
 
   fetchedWeatherData: any;
   city: string = null;
@@ -27,35 +29,33 @@ export class HomePage {
   constructor(public navCtrl: NavController,
               private settingsProvider: SettingsProvider,
               private weatherRequestProvider: WeatherRequestProvider,
-              private newsRequestProvider: NewsRequestProvider ) {
+              private newsRequestProvider: NewsRequestProvider,
+              private loadingCtrl: LoadingController ) {
 
   }
 
   ionViewDidEnter() {
-    this.sendRequest = this.settingsProvider.sendRequest;
-    if(this.sendRequest){
-        this.settingsProvider.getSettings().then((data) => {
-          this.city = data.city;
-          this.temperatureUnit = data.temperatureUnit;
-          this.fetchData(this.city, this.temperatureUnit);
-        });
-    }else if(this.city !== null && this.temperatureUnit !==null){
-      console.log('sending request')
-
-    }
+    this.settingsProvider.getSettings().then((data) => {
+        this.settingsSet = data.settingsSet;
+        this.city = data.city;
+        this.temperatureUnit = data.temperatureUnit;
+    })
+    .then(() => {
+      this.fetchData(this.city, this.temperatureUnit);
+    });
   }
 
   onSettingsIconClick(){
     this.navCtrl.push(SettingsPage);
   }
 
-   fetchData(city: string, temperatureUnit: string){
+  fetchData(city: string, temperatureUnit: string){
+    this.isLoading = true;
     this.weatherRequestProvider.fetchWeatherData(city, temperatureUnit).subscribe(data => {
-      this.fetchedWeatherData = data;
-      console.log(this.fetchedWeatherData);
-      this.countryCode = this.fetchedWeatherData.sys.country;
-      console.log(this.countryCode);
-      this.dataLoaded= true;
+    this.fetchedWeatherData = data;
+    this.countryCode = this.fetchedWeatherData.sys.country;
+    this.dataLoaded= true;
+    this.isLoading = false;
     });
   }
   onNewsButtonClick(){
@@ -65,6 +65,4 @@ export class HomePage {
       console.log(this.fetchedNewsData)
     })
   }
-
-
 }

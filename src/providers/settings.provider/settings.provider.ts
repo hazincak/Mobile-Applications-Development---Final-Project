@@ -10,21 +10,21 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class SettingsProvider {
 
-  private _sendRequest: boolean = false;
+  private _settingsSet: boolean = false;
 
   constructor(public storage: Storage) {
   }
 
-  get sendRequest(){
-    return this._sendRequest;
+  get settingsSet(){
+    return this._settingsSet;
   }
 
-  set sendRequest(value){
-    this._sendRequest = value;
+  set settingsSet(value){
+    this._settingsSet = value;
   }
 
   storeSettings(city: String, temperatureUnit: String){
-    let storedSettings = {"city":city, "temperatureUnit":temperatureUnit}
+    let storedSettings = {"city":city, "temperatureUnit":temperatureUnit, "settingsSet": true }
     this.storage.set('settings-json', storedSettings);
   }
 
