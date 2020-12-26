@@ -14,6 +14,9 @@ import { IonicStorageModule } from '@ionic/storage';
 import { WeatherRequestProvider } from '../providers/weather-request.provider/weather-request.provider';
 import { HttpClientModule } from '@angular/common/http';
 import { NewsRequestProvider } from '../providers/news-request/news-request';
+import { TabsPage } from '../pages/tabs/tabs';
+import { BookmarksPage } from '../pages/bookmarks/bookmarks';
+
 
 
 
@@ -22,18 +25,23 @@ import { NewsRequestProvider } from '../providers/news-request/news-request';
     MyApp,
     HomePage,
     SettingsPage,
+    TabsPage,
+    BookmarksPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot(),
     HttpClientModule,
+
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     HomePage,
     SettingsPage,
+    BookmarksPage,
+    TabsPage,
   ],
   providers: [
     StatusBar,

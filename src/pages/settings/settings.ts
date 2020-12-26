@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AlertController, IonicPage, LoadingController, NavController, NavParams } from 'ionic-angular';
+import { Page } from 'ionic-angular/umd/navigation/nav-util';
 import { SettingsProvider } from '../../providers/settings.provider/settings.provider';
 import { HomePage } from '../home/home';
 
@@ -29,7 +30,8 @@ export class SettingsPage implements OnInit {
               public navParams: NavParams,
               public alertCtrl: AlertController,
               private settingsProvider: SettingsProvider,
-              private loadingCtrl: LoadingController) {
+              private loadingCtrl: LoadingController,
+              ) {
   }
 
   ngOnInit(): void {
@@ -40,7 +42,7 @@ export class SettingsPage implements OnInit {
       city: new FormControl(null, {
 
       })
-    })
+    });
 
   }
 
@@ -52,9 +54,15 @@ export class SettingsPage implements OnInit {
   })
   }
 
+  ionViewDidEnter(){
+    if(this.settingsForm.untouched){
+      this.noDataAlert();
+    }
+  }
+
   ionViewWillLeave(){
 
-    console.log(this.settingsForm)
+
     if(this.settingsForm.untouched){
       this.noDataAlert();
     }
