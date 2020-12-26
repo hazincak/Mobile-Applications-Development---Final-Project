@@ -79,4 +79,8 @@ export class HomePage {
     })
     loader.dismiss();
   }
+
+  bookmarkArticle(){
+
+  }
 }

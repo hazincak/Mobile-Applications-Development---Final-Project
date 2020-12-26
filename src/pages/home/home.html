@@ -28,12 +28,12 @@
         </ion-row>
         <ion-row>
           <ion-col text-center>
-            <img src= "http://openweathermap.org/img/wn/{{fetchedWeatherData.weather[0]['icon']}}@2x.png" alt="Weather icon">
+            <img style="width: 150px" src= "http://openweathermap.org/img/wn/{{fetchedWeatherData.weather[0]['icon']}}@2x.png" alt="Weather icon">
           </ion-col>
         </ion-row>
         <ion-row>
           <ion-col text-center>
-            {{fetchedWeatherData.main.temp}}
+            {{fetchedWeatherData.main.temp}} °C
           </ion-col>
         </ion-row>
         <ion-row>
@@ -53,12 +53,16 @@
     <ion-row *ngIf="fetchedNewsData!==0">
       <ion-col col-md-6 offset-md-3>
         <ion-list>
-          <ion-item text-wrap *ngFor="let item of articles">
-            <img item-start style="width: 150px; border-radius: 20px;" src = {{item.urlToImage}}>
-              <h2>{{item.title}}</h2>
-              <p>{{item.description}}</p>
-
-          </ion-item>
+          <ion-item-sliding *ngFor="let item of articles">
+            <ion-item text-wrap>
+              <img item-start style="width: 150px; border-radius: 20px;" src = {{item.urlToImage}}>
+                <h2>{{item.title}}</h2>
+                <p>{{item.description}}</p>
+            </ion-item>
+            <ion-item-options side="right">
+              <button ion-button (click)="bookmarkArticle()"> <ion-icon style="width: 150%;" name="bookmarks"></ion-icon>Bookmark</button>
+            </ion-item-options>
+          </ion-item-sliding>
         </ion-list>
       </ion-col>
     </ion-row>
