@@ -52,12 +52,9 @@ export class SettingsPage implements OnInit {
       this.city = data.city;
       this.temperatureUnit = data.temperatureUnit;
   })
-  }
+  .catch(()=>{
 
-  ionViewDidEnter(){
-    if(this.settingsForm.untouched){
-      this.noDataAlert();
-    }
+  })
   }
 
   ionViewWillLeave(){

@@ -1,4 +1,5 @@
 import { HttpClient } from '@angular/common/http';
+import { Storage } from '@ionic/storage';
 import { Injectable } from '@angular/core';
 
 /*
@@ -10,8 +11,21 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class NewsRequestProvider {
 
-  constructor(public http: HttpClient) {
-    console.log('Hello NewsRequestProvider Provider');
+  newBookmark = new Array();
+  constructor(public http: HttpClient,
+              private storage: Storage) {}
+
+  bookmarkArticle(item: any){
+    this.newBookmark.push(item)
+    this.storage.set('articles-json', this.newBookmark);
+  }
+
+  getBookmarks(){
+    return this.storage.get('articles-json');
+  }
+
+  getBookmarksAmount(){
+
   }
 
   fetchNewsData(country: string){

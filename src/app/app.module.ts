@@ -13,9 +13,10 @@ import { SettingsProvider } from '../providers/settings.provider/settings.provid
 import { IonicStorageModule } from '@ionic/storage';
 import { WeatherRequestProvider } from '../providers/weather-request.provider/weather-request.provider';
 import { HttpClientModule } from '@angular/common/http';
-import { NewsRequestProvider } from '../providers/news-request/news-request';
+import { NewsRequestProvider } from '../providers/news-request.provider/news-request.provider';
 import { TabsPage } from '../pages/tabs/tabs';
 import { BookmarksPage } from '../pages/bookmarks/bookmarks';
+
 
 
 
@@ -49,7 +50,7 @@ import { BookmarksPage } from '../pages/bookmarks/bookmarks';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     SettingsProvider,
     WeatherRequestProvider,
-    NewsRequestProvider
+    NewsRequestProvider,
   ]
 })
 export class AppModule {}

@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { LoadingController, NavController } from 'ionic-angular';
+import { AlertController, LoadingController, NavController } from 'ionic-angular';
 import { WeatherRequestProvider } from '../../providers/weather-request.provider/weather-request.provider';
 import { SettingsProvider } from '../../providers/settings.provider/settings.provider';
 import { SettingsPage } from '../settings/settings';
-import { NewsRequestProvider } from '../../providers/news-request/news-request';
+import { NewsRequestProvider } from '../../providers/news-request.provider/news-request.provider';
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -30,23 +30,27 @@ export class HomePage {
               private settingsProvider: SettingsProvider,
               private weatherRequestProvider: WeatherRequestProvider,
               private newsRequestProvider: NewsRequestProvider,
-              private loadingCtrl: LoadingController
+              private loadingCtrl: LoadingController,
+              private alertCtrl: AlertController
                ) {
 
   }
 
   ionViewDidEnter() {
+
     this.settingsProvider.getSettings().then((data) => {
+
         this.settingsSet = data.settingsSet;
         this.city = data.city;
         this.temperatureUnit = data.temperatureUnit;
+
     })
     .then(() => {
       this.fetchData(this.city, this.temperatureUnit);
     })
-    .then(() => {
+    .catch(() => {
 
-    });
+    })
   }
 
   onSettingsIconClick(){
@@ -80,7 +84,33 @@ export class HomePage {
     loader.dismiss();
   }
 
-  bookmarkArticle(){
+  onItemClick(url: string){
+    let alert = this.alertCtrl.create({
+      title: 'Open with... ',
+      buttons: [
+        {
+          text: 'Application',
+          handler: () => {
+            console.log('Application clicked');
+          }
+        },
+        {
+          text: 'Web Browser',
+          handler: () => {
+           this.openNewTab(url);
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
 
+  onBookmarksIconClick(item: any){
+    this.newsRequestProvider.bookmarkArticle(item);
+  }
+
+  openNewTab(url: string){
+    var win = window.open(url, '_blank');
+    win.focus();
   }
 }

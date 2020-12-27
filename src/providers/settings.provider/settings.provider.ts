@@ -24,7 +24,10 @@ export class SettingsProvider {
   }
 
   storeSettings(city: String, temperatureUnit: String){
-    let storedSettings = {"city":city, "temperatureUnit":temperatureUnit, "settingsSet": true }
+    let storedSettings = {
+      "city":city,
+      "temperatureUnit":temperatureUnit,
+      "settingsSet": true }
     this.storage.set('settings-json', storedSettings);
   }
 
