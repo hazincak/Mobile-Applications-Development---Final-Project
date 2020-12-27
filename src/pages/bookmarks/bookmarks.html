@@ -11,5 +11,22 @@
 </ion-header>
 
 <ion-content padding>
-
+  <ion-grid>
+    <ion-row>
+      <ion-col col-md-6 offset-md-3>
+        <ion-list>
+          <ion-item-sliding *ngFor="let item of bookmarks; index as i">
+            <ion-item   text-wrap>
+              <img item-start style="width: 150px; border-radius: 20px;" src = {{item.urlToImage}}>
+                <h2>{{item.title}}</h2>
+                <p>{{item.description}}</p>
+            </ion-item>
+            <ion-item-options side="right">
+              <button (click)="onDeleteClick(item[i])" > <ion-icon style="width: 150%;" name="bookmarks"></ion-icon>Bookmark</button>
+            </ion-item-options>
+          </ion-item-sliding>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

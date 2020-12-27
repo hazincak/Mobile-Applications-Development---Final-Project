@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NewsRequestProvider } from '../../providers/news-request.provider/news-request.provider';
 
 /**
  * Generated class for the BookmarksPage page.
@@ -15,11 +16,23 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class BookmarksPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  bookmarks = new Array();
+
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              private newsRequestProvider: NewsRequestProvider
+              ) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad BookmarksPage');
+    this.newsRequestProvider.getBookmarks().then((data) => {
+      this.bookmarks = data;
+      console.log(this.bookmarks)
+    })
+  }
+
+  onDeleteClick(){
+
   }
 
 }
