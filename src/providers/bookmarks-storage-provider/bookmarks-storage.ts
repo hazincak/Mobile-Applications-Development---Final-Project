@@ -11,22 +11,30 @@ import { Storage } from '@ionic/storage';
 @Injectable()
 export class BookmarksStorageProvider {
 
-  newBookmarks = new Array();
-
   constructor(public http: HttpClient,
               public storage: Storage) {}
 
   bookmarkArticle(item: any){
-    this.newBookmarks.push(item)
+
+    let tempBookmarks = new Array();
     this.getBookmarks().then((data) => {
-      this.newBookmarks.push(data);
+      if(data !== null){
+        tempBookmarks = data;
+      }
+    }).then(()=>{
+      tempBookmarks.push(item)
+    }).then(()=> {
+      this.storage.remove('bookmarks-json');
+      this.storage.set('bookmarks-json', tempBookmarks);
     })
-    this.storage.remove('articles-json');
-    this.storage.set('articles-json', this.newBookmarks);
+
+
+    // this.storage.remove('bookmarks-json');
+    // this.storage.set('bookmarks-json', tempBookmarks);
   }
 
   getBookmarks(){
-    return this.storage.get('articles-json');
+    return this.storage.get('bookmarks-json');
   }
 
   getBookmarksAmount(){

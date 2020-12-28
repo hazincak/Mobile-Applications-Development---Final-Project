@@ -25,7 +25,6 @@ export class TabsPage {
   tab3Root = BookmarksPage;
 
   bookmarksAmount: number
-  articles: any
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
