@@ -51,6 +51,39 @@
     <ion-row *ngIf="fetchedNewsData!==0">
       <ion-col col-md-6 offset-md-3>
         <ion-list>
+          <ion-card *ngFor="let item of articles">
+            <ion-item>
+              <h2>{{item.author}}</h2>
+              <p>{{item.publishedAt}}</p>
+            </ion-item>
+            <img (click)="onItemClick(item.url)" src={{item.urlToImage}}/>
+            <ion-card-content>
+              <ion-card-title (click)="onItemClick(item.url)">
+                {{item.title}}
+                </ion-card-title>
+              <p (click)="onItemClick(item.url)">
+                {{item.description}}
+              </p>
+            </ion-card-content>
+            <ion-row text-center>
+              <ion-col>
+                <button ion-button icon-start clear (click)="onBookmarksIconClick(item)">
+                  <ion-icon name="add"></ion-icon>
+                  <div>Bookmark</div>
+                </button>
+              </ion-col>
+              <ion-col>
+                <button ion-button icon-start (click)="onItemClick(item.url)">
+                  <ion-icon name="book"></ion-icon>
+                  <div>Read article</div>
+                </button>
+              </ion-col>
+            </ion-row>
+          </ion-card>
+        </ion-list>
+      </ion-col>
+      <!-- <ion-col col-md-6 offset-md-3>
+        <ion-list>
           <ion-item-sliding *ngFor="let item of articles">
             <ion-item  (click)="onItemClick(item.url)" text-wrap>
               <img item-start style="width: 150px; border-radius: 20px;" src = {{item.urlToImage}}>
@@ -62,7 +95,7 @@
             </ion-item-options>
           </ion-item-sliding>
         </ion-list>
-      </ion-col>
+      </ion-col> -->
     </ion-row>
     <ion-row>
       <ion-col col-md-6 offset-md-3 text-center *ngIf="!fetchedNewsData">

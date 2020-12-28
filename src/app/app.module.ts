@@ -28,7 +28,7 @@ import { BookmarksStorageProvider } from '../providers/bookmarks-storage-provide
     HomePage,
     SettingsPage,
     TabsPage,
-    BookmarksPage
+    BookmarksPage,
   ],
   imports: [
     BrowserModule,

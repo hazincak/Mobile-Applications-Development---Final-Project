@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AlertController, LoadingController, NavController } from 'ionic-angular';
+import { ToastController, LoadingController, NavController } from 'ionic-angular';
 import { WeatherRequestProvider } from '../../providers/weather-request-provider/weather-request-provider';
 import { SettingsProvider } from '../../providers/settings-storage-provider/settings-storage-provider';
 import { SettingsPage } from '../settings/settings';
@@ -33,7 +33,7 @@ export class HomePage {
               private newsRequestProvider: NewsRequestProvider,
               private bookmarksStorageProvider: BookmarksStorageProvider,
               private loadingCtrl: LoadingController,
-              private alertCtrl: AlertController
+              public toastCtrl: ToastController
                ) {
 
   }
@@ -86,33 +86,22 @@ export class HomePage {
     loader.dismiss();
   }
 
-  onItemClick(url: string){
-    let alert = this.alertCtrl.create({
-      title: 'Open with... ',
-      buttons: [
-        {
-          text: 'Application',
-          handler: () => {
-            console.log('Application clicked');
-          }
-        },
-        {
-          text: 'Web Browser',
-          handler: () => {
-           this.openNewTab(url);
-          }
-        }
-      ]
-    });
-    alert.present();
-  }
-
   onBookmarksIconClick(item: any){
     this.bookmarksStorageProvider.bookmarkArticle(item);
+    this.presentToast('Article was bookmarked successfully')
   }
 
-  openNewTab(url: string){
+  onItemClick(url: string){
     var win = window.open(url, '_blank');
     win.focus();
+  }
+
+  presentToast(message: string) {
+    const toast = this.toastCtrl.create({
+      message: message,
+      duration: 3000,
+      position: 'top'
+    });
+    toast.present();
   }
 }

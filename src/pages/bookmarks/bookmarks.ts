@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { BookmarksStorageProvider } from '../../providers/bookmarks-storage-provider/bookmarks-storage';
 
 
@@ -21,7 +21,8 @@ export class BookmarksPage {
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              private bookmarksStorageProvider: BookmarksStorageProvider
+              private bookmarksStorageProvider: BookmarksStorageProvider,
+              public toastCtrl: ToastController
               ) {
   }
 
@@ -38,6 +39,16 @@ export class BookmarksPage {
   onDeleteClick(removeIndex){
     this.bookmarksStorageProvider.deleteBookmark(removeIndex);
     this.bookmarks.splice(removeIndex, 1);
+    this.presentToast('Bookmark was deleted successfully')
+  }
+
+  presentToast(message: string) {
+    const toast = this.toastCtrl.create({
+      message: message,
+      duration: 3000,
+      position: 'top'
+    });
+    toast.present();
   }
 
 }
