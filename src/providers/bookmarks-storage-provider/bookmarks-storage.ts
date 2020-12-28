@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
+import { Events } from 'ionic-angular';
 
 /*
   Generated class for the BookmarksStorageProvider provider.
@@ -12,7 +13,8 @@ import { Storage } from '@ionic/storage';
 export class BookmarksStorageProvider {
 
   constructor(public http: HttpClient,
-              public storage: Storage) {}
+              public storage: Storage,
+              public events: Events) {}
 
   bookmarkArticle(item: any){
 
@@ -26,6 +28,9 @@ export class BookmarksStorageProvider {
     }).then(()=> {
       this.storage.remove('bookmarks-json');
       this.storage.set('bookmarks-json', tempBookmarks);
+
+    }).then(()=>{
+      this.events.publish('bookmarks:updated');
     })
   }
 
@@ -46,6 +51,9 @@ export class BookmarksStorageProvider {
     .then(() => {
       this.storage.remove('bookmarks-json');
       this.storage.set('bookmarks-json', tempBookmarks);
+    })
+    .then(() => {
+      this.events.publish('bookmarks:updated');
     })
   }
 }
