@@ -17,7 +17,7 @@ import { BookmarksStorageProvider } from '../../providers/bookmarks-storage-prov
 })
 export class BookmarksPage {
 
-  bookmarks = new Array();
+  bookmarks = [];
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -37,7 +37,7 @@ export class BookmarksPage {
 
   onDeleteClick(removeIndex){
     this.bookmarksStorageProvider.deleteBookmark(removeIndex);
-    this.getBookmarks();
+    this.bookmarks.splice(removeIndex, 1);
   }
 
 }
