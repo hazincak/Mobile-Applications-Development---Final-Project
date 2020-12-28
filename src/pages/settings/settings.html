@@ -15,24 +15,10 @@
     <ion-grid>
       <ion-row>
         <ion-col col-md-6 offset-md-3>
-          <ion-searchbar
-            placeholder= "{{settingsSet ? city : 'Enter your city'}}"
-            autocomplete= "on"
-            formControlName="city"
-            ></ion-searchbar>
-          <ion-list>
-            <ion-item>
-
-            </ion-item>
-          </ion-list>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col col-md-6 offset-md-3>
           <ion-list radio-group formControlName="temperatureUnit">
-            <ion-list-header>
-              Temperature units
-            </ion-list-header>
+
+              <h1>Temperature units</h1>
+
             <ion-item>
               <ion-label>Standard</ion-label>
               <ion-radio value="standard" checked = "{{temperatureUnit === 'standard' ? true : false }}" ></ion-radio>
@@ -52,11 +38,53 @@
       </ion-row>
       <ion-row>
         <ion-col col-md-6 offset-md-3>
+          <h1>Location</h1>
+          <!-- <ion-searchbar
+            placeholder= "{{settingsSet ? city : 'Enter your city'}}"
+            autocomplete= "on"
+            formControlName="city"
+            ></ion-searchbar> -->
+            <ion-item>
+              <ion-label fixed>City</ion-label>
+              <ion-input
+                type="text"
+                placeholder="{{settingsSet ? city : 'Enter your city'}}"
+                formControlName="city"
+                ></ion-input>
+            </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-md-6 offset-md-3>
           <button
             type="submit"
             ion-button block color="primary"
             [disabled]="!this.settingsForm.controls.temperatureUnit.dirty && !this.settingsForm.controls.city.dirty"
             >SAVE</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+  <form [formGroup]="testForm" (ngSubmit)="onTestSubmit()">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label fixed>Test</ion-label>
+            <ion-input
+              type="text"
+              placeholder="test"
+              formControlName="testCity"
+              ></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-md-6 offset-md-3>
+          <button
+            type="submit"
+            ion-button block color="primary"
+            >TEST</button>
         </ion-col>
       </ion-row>
     </ion-grid>

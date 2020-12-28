@@ -16,7 +16,8 @@
     <ion-row *ngIf="!dataLoaded">
       <ion-col col-md-6 offset-md-3 text-center>
           <ion-icon class="icon icon--large" name="ios-alert-outline"></ion-icon>
-          <p>No data loaded</p>
+          <p>No data loaded.</p>
+          <a href="#" (click)="onSettingsIconClick()">Configure your settings</a>
       </ion-col>
     </ion-row>
     <ion-row *ngIf="dataLoaded">

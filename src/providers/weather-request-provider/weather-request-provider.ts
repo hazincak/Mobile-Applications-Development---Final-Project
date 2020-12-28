@@ -18,4 +18,8 @@ export class WeatherRequestProvider {
     return this.http.get(`http://api.openweathermap.org/data/2.5/weather?q=${city}&units=${temperatureUnit}&appid=0d8aa15d3feaefc17582393df3b73903`);
   }
 
+  fetchCities(city: string){
+    return this.http.get(`http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=10&appid=0d8aa15d3feaefc17582393df3b73903`)
+  }
+
 }

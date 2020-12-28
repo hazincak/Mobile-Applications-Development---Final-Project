@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { AlertController, IonicPage, LoadingController, NavController, NavParams } from 'ionic-angular';
 import { SettingsProvider } from '../../providers/settings-storage-provider/settings-storage-provider';
+import { WeatherRequestProvider } from '../../providers/weather-request-provider/weather-request-provider';
 import { HomePage } from '../home/home';
 
 
@@ -21,15 +22,21 @@ import { HomePage } from '../home/home';
 export class SettingsPage implements OnInit {
 
   settingsForm: FormGroup;
+
   settingsSet: boolean;
   city: string;
   temperatureUnit: string;
+
+  testForm: FormGroup;
+  testCity: string;
+  testData: any;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public alertCtrl: AlertController,
               private settingsProvider: SettingsProvider,
               private loadingCtrl: LoadingController,
+              public weatherRequestProvider: WeatherRequestProvider,
               ) {
   }
 
@@ -42,6 +49,12 @@ export class SettingsPage implements OnInit {
 
       })
     });
+
+    this.testForm = new FormGroup({
+      testCity: new FormControl(null, {
+
+      })
+    })
 
   }
 
@@ -71,7 +84,7 @@ export class SettingsPage implements OnInit {
     loader.present();
     if(!this.settingsForm.controls.temperatureUnit.dirty && !this.settingsForm.controls.city.dirty){
       return;
-    }else if(this.settingsForm.controls.city.untouched && this.city === null){
+    }else if(this.settingsForm.controls.city.untouched || this.city === null){
       this.noCityAlert();
       this.settingsForm.controls.city.setValue('Galway');
       this.navCtrl.push(HomePage);
@@ -87,6 +100,7 @@ export class SettingsPage implements OnInit {
       this.settingsProvider.storeSettings(this.city, this.settingsForm.controls.temperatureUnit.value);
     }
     loader.dismiss();
+    console.log(this.settingsForm)
   }
 
   async noDataAlert(){
@@ -106,6 +120,15 @@ export class SettingsPage implements OnInit {
       buttons:['ok']
     });
     alert.present();
+  }
+
+  onTestSubmit(){
+    let value = this.testForm.controls.testCity.value;
+    console.log(value)
+    this.weatherRequestProvider.fetchCities(value).subscribe(data => {
+      this.testData = data;
+      console.log(this.testData)
+    })
   }
 
 }
