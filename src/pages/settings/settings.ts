@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { AlertController, IonicPage, LoadingController, NavController, NavParams } from 'ionic-angular';
-import { Page } from 'ionic-angular/umd/navigation/nav-util';
-import { SettingsProvider } from '../../providers/settings.provider/settings.provider';
+import { SettingsProvider } from '../../providers/settings-storage-provider/settings-storage-provider';
 import { HomePage } from '../home/home';
 
 

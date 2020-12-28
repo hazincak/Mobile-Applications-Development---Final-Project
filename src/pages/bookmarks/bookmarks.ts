@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { NewsRequestProvider } from '../../providers/news-request.provider/news-request.provider';
+import { BookmarksStorageProvider } from '../../providers/bookmarks-storage-provider/bookmarks-storage';
+import { NewsRequestProvider } from '../../providers/news-request-provider/news-request-provider';
 
 /**
  * Generated class for the BookmarksPage page.
@@ -20,12 +21,12 @@ export class BookmarksPage {
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              private newsRequestProvider: NewsRequestProvider
+              private bookmarksStorageProvider: BookmarksStorageProvider
               ) {
   }
 
-  ionViewDidLoad() {
-    this.newsRequestProvider.getBookmarks().then((data) => {
+  ionViewDidEnter() {
+    this.bookmarksStorageProvider.getBookmarks().then((data) => {
       this.bookmarks = data;
       console.log(this.bookmarks)
     })

@@ -9,13 +9,14 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { SettingsPage } from '../pages/settings/settings';
 
-import { SettingsProvider } from '../providers/settings.provider/settings.provider';
+import { SettingsProvider } from '../providers/settings-storage-provider/settings-storage-provider';
 import { IonicStorageModule } from '@ionic/storage';
-import { WeatherRequestProvider } from '../providers/weather-request.provider/weather-request.provider';
+import { WeatherRequestProvider } from '../providers/weather-request-provider/weather-request-provider';
 import { HttpClientModule } from '@angular/common/http';
-import { NewsRequestProvider } from '../providers/news-request.provider/news-request.provider';
+import { NewsRequestProvider } from '../providers/news-request-provider/news-request-provider';
 import { TabsPage } from '../pages/tabs/tabs';
 import { BookmarksPage } from '../pages/bookmarks/bookmarks';
+import { BookmarksStorageProvider } from '../providers/bookmarks-storage-provider/bookmarks-storage';
 
 
 
@@ -51,6 +52,7 @@ import { BookmarksPage } from '../pages/bookmarks/bookmarks';
     SettingsProvider,
     WeatherRequestProvider,
     NewsRequestProvider,
+    BookmarksStorageProvider,
   ]
 })
 export class AppModule {}

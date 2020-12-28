@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { NewsRequestProvider } from '../../providers/news-request.provider/news-request.provider';
+import { BookmarksStorageProvider } from '../../providers/bookmarks-storage-provider/bookmarks-storage';
+import { NewsRequestProvider } from '../../providers/news-request-provider/news-request-provider';
 import { BookmarksPage } from '../bookmarks/bookmarks';
 import { HomePage } from '../home/home';
 import { SettingsPage } from '../settings/settings';
@@ -28,12 +29,12 @@ export class TabsPage {
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              private newsRequestProvider: NewsRequestProvider
+              private bookmarksStorageProvider: BookmarksStorageProvider
               ) {
   }
 
   ionViewDidLoad() {
-    this.newsRequestProvider.getBookmarksAmount();
+    this.bookmarksStorageProvider.getBookmarksAmount();
   }
 
 }

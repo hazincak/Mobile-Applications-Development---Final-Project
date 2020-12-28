@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { AlertController, LoadingController, NavController } from 'ionic-angular';
-import { WeatherRequestProvider } from '../../providers/weather-request.provider/weather-request.provider';
-import { SettingsProvider } from '../../providers/settings.provider/settings.provider';
+import { WeatherRequestProvider } from '../../providers/weather-request-provider/weather-request-provider';
+import { SettingsProvider } from '../../providers/settings-storage-provider/settings-storage-provider';
 import { SettingsPage } from '../settings/settings';
-import { NewsRequestProvider } from '../../providers/news-request.provider/news-request.provider';
+import { NewsRequestProvider } from '../../providers/news-request-provider/news-request-provider';
+import { BookmarksStorageProvider } from '../../providers/bookmarks-storage-provider/bookmarks-storage';
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -30,6 +31,7 @@ export class HomePage {
               private settingsProvider: SettingsProvider,
               private weatherRequestProvider: WeatherRequestProvider,
               private newsRequestProvider: NewsRequestProvider,
+              private bookmarksStorageProvider: BookmarksStorageProvider,
               private loadingCtrl: LoadingController,
               private alertCtrl: AlertController
                ) {
@@ -106,7 +108,7 @@ export class HomePage {
   }
 
   onBookmarksIconClick(item: any){
-    this.newsRequestProvider.bookmarkArticle(item);
+    this.bookmarksStorageProvider.bookmarkArticle(item);
   }
 
   openNewTab(url: string){
