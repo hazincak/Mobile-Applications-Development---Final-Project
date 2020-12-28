@@ -27,17 +27,25 @@ export class BookmarksStorageProvider {
       this.storage.remove('bookmarks-json');
       this.storage.set('bookmarks-json', tempBookmarks);
     })
-
-
-    // this.storage.remove('bookmarks-json');
-    // this.storage.set('bookmarks-json', tempBookmarks);
   }
 
   getBookmarks(){
     return this.storage.get('bookmarks-json');
   }
 
-  getBookmarksAmount(){
-
+  deleteBookmark(removeIndex){
+    let tempBookmarks = new Array();
+    this.getBookmarks().then((data) => {
+      if(data !==null){
+        tempBookmarks = data
+      }
+    })
+    .then(() => {
+      tempBookmarks.splice(removeIndex, 1);
+    })
+    .then(() => {
+      this.storage.remove('bookmarks-json');
+      this.storage.set('bookmarks-json', tempBookmarks);
+    })
   }
 }

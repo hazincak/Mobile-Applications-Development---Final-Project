@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { BookmarksStorageProvider } from '../../providers/bookmarks-storage-provider/bookmarks-storage';
-import { NewsRequestProvider } from '../../providers/news-request-provider/news-request-provider';
+
 
 /**
  * Generated class for the BookmarksPage page.
@@ -26,14 +26,18 @@ export class BookmarksPage {
   }
 
   ionViewDidEnter() {
+    this.getBookmarks();
+  }
+
+  getBookmarks(){
     this.bookmarksStorageProvider.getBookmarks().then((data) => {
       this.bookmarks = data;
-      console.log(this.bookmarks)
     })
   }
 
-  onDeleteClick(){
-
+  onDeleteClick(removeIndex){
+    this.bookmarksStorageProvider.deleteBookmark(removeIndex);
+    this.getBookmarks();
   }
 
 }
