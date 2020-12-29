@@ -17,7 +17,7 @@ export class NewsRequestProvider {
 
 
   fetchNewsData(country: string){
-    return this.http.get(`https://newsapi.org/v2/top-headlines?country=${country}&pageSize=5&apiKey=47c2f415725e4a94b8c8bd895cc09596`)
+    return this.http.get<any>(`https://newsapi.org/v2/top-headlines?country=${country}&pageSize=5&apiKey=47c2f415725e4a94b8c8bd895cc09596`)
   }
 
 }

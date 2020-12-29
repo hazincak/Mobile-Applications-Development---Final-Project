@@ -5,6 +5,7 @@ import { SettingsProvider } from '../../providers/settings-storage-provider/sett
 import { SettingsPage } from '../settings/settings';
 import { NewsRequestProvider } from '../../providers/news-request-provider/news-request-provider';
 import { BookmarksStorageProvider } from '../../providers/bookmarks-storage-provider/bookmarks-storage';
+import { Observable } from 'rxjs/Observable';
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -20,7 +21,7 @@ export class HomePage {
   temperatureUnit: string = null;
   countryCode: string = null;
 
-  fetchedNewsData: any;
+  fetchedNewsData: Observable<any>;
   articles: any;
 
 
@@ -63,20 +64,63 @@ export class HomePage {
     loader.present();
     this.weatherRequestProvider.fetchWeatherData(city, countryCode ,temperatureUnit).subscribe(data => {
     this.fetchedWeatherData = data;
+    console.log(this.fetchedWeatherData)
     this.dataLoaded= true;
     loader.dismiss();
     });
   }
   onNewsButtonClick(){
     const loader = this.loadingCtrl.create({
-      content: 'Fetching news...',
+      content: 'Loading news...',
     });
     loader.present();
     this.newsRequestProvider.fetchNewsData(this.countryCode).subscribe(data => {
-      this.fetchedNewsData = data;
-      this.articles = this.fetchedNewsData.articles;
+      this.fetchedNewsData = data.articles;
     })
     loader.dismiss();
+  }
+
+  getSpeedUnit(temperatureUnit: string){
+    switch(temperatureUnit){
+      case 'standard':
+       return 'm/s'
+      case 'metric':
+        return 'm/s'
+      case 'imperial':
+        return 'mph'
+    }
+  }
+
+  getCardinals(degree: number){
+    if(degree >= 338 && degree <= 22){
+      return 'North'
+    }else if(degree >= 23 && degree <= 67){
+      return 'NorthEast'
+    }else if(degree >= 68 && degree <= 112){
+      return 'East'
+    }else if(degree >= 113 && degree <= 157){
+      return 'SouthEast'
+    }else if(degree >= 158 && degree <= 203){
+      return 'South'
+    }else if(degree >= 204 && degree <= 249){
+      return 'SouthWest'
+    }else if(degree >= 250 && degree <= 295){
+      return 'West'
+    }else if(degree >= 296 && degree <= 337){
+      return 'NorthWest'
+    }
+    }
+
+
+  getTemperatureUnit(temperatureUnit: string){
+    switch(temperatureUnit){
+      case 'standard':
+       return '°K'
+      case 'metric':
+        return '°C'
+      case 'imperial':
+        return '°F'
+    }
   }
 
   onBookmarksIconClick(item: any){
@@ -96,5 +140,10 @@ export class HomePage {
       position: 'top'
     });
     toast.present();
+  }
+
+  rotateIcon(deg: number){
+    const styles = {'transform' : `rotate(${deg}deg)`};
+    return styles;
   }
 }

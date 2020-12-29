@@ -27,32 +27,34 @@
             <h2>Weather for {{fetchedWeatherData.name}} ({{countryCode}}).</h2>
           </ion-col>
         </ion-row>
-        <ion-row>
-          <ion-col text-center>
-            <img style="width: 150px" src= "http://openweathermap.org/img/wn/{{fetchedWeatherData.weather[0]['icon']}}@2x.png" alt="Weather icon">
+        <ion-row align-items-center >
+          <ion-col text-right>
+            <img style="width: 120px;" src= "http://openweathermap.org/img/wn/{{fetchedWeatherData.weather[0]['icon']}}@2x.png" alt="Weather icon">
+          </ion-col>
+          <ion-col >
+            <h2 style="display: inline;">{{fetchedWeatherData.main.temp}} {{getTemperatureUnit(temperatureUnit)}}</h2>
+            <h5>(Feels like {{fetchedWeatherData.main.feels_like}} {{getTemperatureUnit(temperatureUnit)}})</h5>
           </ion-col>
         </ion-row>
         <ion-row>
-          <ion-col text-center>
-            {{fetchedWeatherData.main.temp}} °C
+          <ion-col col-6 text-center>
+            <h6>Description: {{fetchedWeatherData.weather[0].main}}</h6>
+            <h6>Humidity: {{fetchedWeatherData.main.humidity}}%</h6>
+            <h6>Visibilty: {{fetchedWeatherData.visibility/1000}}km</h6>
           </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col col-6>
-            <p>Description: {{fetchedWeatherData.weather.main}}</p>
-            <p>Humidity: {{fetchedWeatherData.main.humidity}}%</p>
-            <p>Visibilty: {{fetchedWeatherData.visibility}}</p>
-          </ion-col>
-          <ion-col col-6>
-            <!-- <img src="../../assets/imgs/compass.svg"> -->
+          <ion-col col-6 text-center >
+            <!-- <img style="width: 80px;" src="../../assets/imgs/compass.svg"> -->
+
+            <h6>Speed: {{fetchedWeatherData.wind.speed}} {{getSpeedUnit(temperatureUnit)}}</h6>
+            <h6>Direction: {{getCardinals(fetchedWeatherData.wind.deg)}} &nbsp; <ion-icon style="font-size: 30px;"  [ngStyle]="rotateIcon(fetchedWeatherData.wind.deg)" name="md-navigate"></ion-icon></h6>
           </ion-col>
         </ion-row>
       </ion-col>
     </ion-row>
-    <ion-row *ngIf="fetchedNewsData!==0">
+    <ion-row *ngIf="fetchedNewsData">
       <ion-col col-md-6 offset-md-3>
         <ion-list>
-          <ion-card *ngFor="let item of articles">
+          <ion-card *ngFor="let item of fetchedNewsData">
             <ion-item>
               <h2>{{item.author}}</h2>
               <p>{{item.publishedAt}}</p>
