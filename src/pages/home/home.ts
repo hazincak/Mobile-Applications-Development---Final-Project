@@ -15,8 +15,6 @@ export class HomePage {
   settingsSet: boolean;
   dataLoaded: boolean = false;
 
-  isLoading : boolean = false;
-
   fetchedWeatherData: any;
   city: string = null;
   temperatureUnit: string = null;
@@ -44,32 +42,28 @@ export class HomePage {
 
         this.settingsSet = data.settingsSet;
         this.city = data.city;
+        this.countryCode = data.countryCode;
         this.temperatureUnit = data.temperatureUnit;
 
     })
     .then(() => {
-      this.fetchData(this.city, this.temperatureUnit);
+      this.fetchData(this.city, this.countryCode, this.temperatureUnit);
     })
-    .catch(() => {
-
-    })
+    .catch(() => {})
   }
 
   onSettingsIconClick(){
     this.navCtrl.push(SettingsPage);
   }
 
-  fetchData(city: string, temperatureUnit: string){
+  fetchData(city: string, countryCode: string, temperatureUnit: string){
     const loader = this.loadingCtrl.create({
       content: 'Fetching data...',
     });
     loader.present();
-    this.weatherRequestProvider.fetchWeatherData(city, temperatureUnit).subscribe(data => {
+    this.weatherRequestProvider.fetchWeatherData(city, countryCode ,temperatureUnit).subscribe(data => {
     this.fetchedWeatherData = data;
-    this.countryCode = this.fetchedWeatherData.sys.country;
     this.dataLoaded= true;
-    console.log(this.fetchedWeatherData)
-    console.log(this.fetchedWeatherData.weather[0]['icon'])
     loader.dismiss();
     });
   }
@@ -81,7 +75,6 @@ export class HomePage {
     this.newsRequestProvider.fetchNewsData(this.countryCode).subscribe(data => {
       this.fetchedNewsData = data;
       this.articles = this.fetchedNewsData.articles;
-      console.log(this.fetchedNewsData)
     })
     loader.dismiss();
   }
