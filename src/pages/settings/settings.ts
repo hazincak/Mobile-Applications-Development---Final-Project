@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { AlertController, IonicPage, LoadingController, NavController, NavParams } from 'ionic-angular';
 import { Observable } from 'rxjs/Observable';
-import { map } from 'rxjs/operators';
 import { SettingsProvider } from '../../providers/settings-storage-provider/settings-storage-provider';
 import { WeatherRequestProvider } from '../../providers/weather-request-provider/weather-request-provider';
 import { HomePage } from '../home/home';

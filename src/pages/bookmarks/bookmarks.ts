@@ -17,7 +17,7 @@ import { BookmarksStorageProvider } from '../../providers/bookmarks-storage-prov
 })
 export class BookmarksPage {
 
-  bookmarks = [];
+  bookmarks = null;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -28,12 +28,20 @@ export class BookmarksPage {
 
   ionViewDidEnter() {
     this.getBookmarks();
+    if(this.bookmarks == null){
+      this.bookmarks = [];
+    }
+    console.log(this.bookmarks)
 
   }
 
   getBookmarks(){
     this.bookmarksStorageProvider.getBookmarks().then((data) => {
       this.bookmarks = data;
+    }).then(() => {
+      if (this.bookmarks.length == 0){
+        this.bookmarks = null
+      }
     })
   }
 
