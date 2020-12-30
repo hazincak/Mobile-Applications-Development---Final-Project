@@ -15,21 +15,21 @@
     <ion-grid>
       <ion-row>
         <ion-col col-md-6 offset-md-3>
-          <ion-list radio-group formControlName="temperatureUnit">
+          <ion-list  radio-group formControlName="temperatureUnit">
 
               <h1>Temperature units</h1>
 
-            <ion-item>
+            <ion-item color="light">
               <ion-label>Standard</ion-label>
               <ion-radio value="standard" checked = "{{temperatureUnit === 'standard' ? true : false }}" ></ion-radio>
             </ion-item>
 
-            <ion-item>
+            <ion-item color="light">
               <ion-label>Metric</ion-label>
               <ion-radio value="metric" checked = "{{temperatureUnit === 'metric' ? true : false }}"></ion-radio>
             </ion-item>
 
-            <ion-item>
+            <ion-item color="light">
               <ion-label>Imperial</ion-label>
               <ion-radio value="imperial" checked = "{{temperatureUnit === 'imperial' ? true : false }}"></ion-radio>
             </ion-item>
@@ -45,9 +45,9 @@
             autocomplete= "on"
             formControlName="city"
             ></ion-searchbar>
-            <span *ngIf="cityErrorMessage" style="color: red;">{{ cityErrorMessage }}</span>
+            <span *ngIf="cityErrorMessage" style="color: aqua;">{{ cityErrorMessage }}</span>
              <ion-list style="cursor: pointer;">
-              <ion-item *ngFor="let item of listOfCities" (click)="onCityClick(item)">
+              <ion-item color="light" *ngFor="let item of listOfCities" (click)="onCityClick(item)">
                 {{ item.name }} {{item.country}}
               </ion-item>
             </ion-list>
@@ -57,7 +57,7 @@
         <ion-col col-md-6 offset-md-3>
           <button
             type="submit"
-            ion-button block color="primary"
+            ion-button outline block color="light"
             [disabled]="(this.settingsForm.controls.temperatureUnit.pristine && this.temperatureUnit == null) || cityErrorMessage !== null"
             >SAVE</button>
         </ion-col>

@@ -31,8 +31,6 @@ export class BookmarksPage {
     if(this.bookmarks == null){
       this.bookmarks = [];
     }
-    console.log(this.bookmarks)
-
   }
 
   getBookmarks(){

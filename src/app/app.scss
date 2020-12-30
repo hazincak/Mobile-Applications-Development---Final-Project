@@ -22,17 +22,30 @@
   }
 }
 
-// .toolbar-background{
-//   background-color: #134e5e;
-// }
+.toolbar-background{
+  background-color: #134e5e;
+}
+
+.toolbar-title{
+  color: aqua;
+}
+
+ion-icon{
+  color: aqua;
+}
 
 
-// ion-content{
-//     @include linear-gradient(bottom, $moss);
-//       -webkit-background-size: cover;
-//       -moz-background-size: cover;
-//       background-size: cover;
 
 
-//   }
+
+
+
+ion-content{
+    @include linear-gradient(bottom, $moss);
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      background-size: cover;
+
+
+  }
 

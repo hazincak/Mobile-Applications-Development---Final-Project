@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar color="primary">
+  <ion-navbar>
     <ion-title start>
       G00376399
     </ion-title>
@@ -24,11 +24,11 @@
       <ion-col col-md-6 offset-md-3>
         <ion-row>
           <ion-col text-center>
-            <h2>Weather for {{fetchedWeatherData.name}} ({{countryCode}})</h2>
+            <h2 >Weather for {{fetchedWeatherData.name}} ({{countryCode}})</h2>
           </ion-col>
         </ion-row>
         <ion-row align-items-center >
-          <ion-col >
+          <ion-col text-center >
             <img style="width: 120px;" src= "http://openweathermap.org/img/wn/{{fetchedWeatherData.weather[0]['icon']}}@2x.png" alt="Weather icon">
           </ion-col>
           <ion-col>
@@ -68,8 +68,8 @@
     <ion-row *ngIf="fetchedNewsData">
       <ion-col col-md-6 offset-md-3>
         <ion-list>
-          <ion-card *ngFor="let item of fetchedNewsData">
-            <ion-item>
+          <ion-card color="secondary" *ngFor="let item of fetchedNewsData">
+            <ion-item color="secondary">
               <h2>{{item.author}}</h2>
               <p>{{item.publishedAt}}</p>
             </ion-item>
@@ -84,7 +84,7 @@
             </ion-card-content>
             <ion-row text-center>
               <ion-col>
-                <button ion-button icon-start clear (click)="onBookmarksIconClick(item)">
+                <button ion-button icon-start (click)="onBookmarksIconClick(item)">
                   <ion-icon name="add"></ion-icon>
                   <div>Bookmark</div>
                 </button>
@@ -99,24 +99,10 @@
           </ion-card>
         </ion-list>
       </ion-col>
-      <!-- <ion-col col-md-6 offset-md-3>
-        <ion-list>
-          <ion-item-sliding *ngFor="let item of articles">
-            <ion-item  (click)="onItemClick(item.url)" text-wrap>
-              <img item-start style="width: 150px; border-radius: 20px;" src = {{item.urlToImage}}>
-                <h2>{{item.title}}</h2>
-                <p>{{item.description}}</p>
-            </ion-item>
-            <ion-item-options side="right">
-              <button (click)="onBookmarksIconClick(item)" > <ion-icon name="bookmarks"></ion-icon>Bookmark</button>
-            </ion-item-options>
-          </ion-item-sliding>
-        </ion-list>
-      </ion-col> -->
     </ion-row>
     <ion-row>
       <ion-col col-md-6 offset-md-3 text-center *ngIf="!fetchedNewsData">
-        <button ion-button block color="dark" (click)="onNewsButtonClick()" [disabled]="!dataLoaded" outline>News</button>
+        <button ion-button block color="light" (click)="onNewsButtonClick()" [disabled]="!dataLoaded" outline>News</button>
       </ion-col>
     </ion-row>
   </ion-grid>
