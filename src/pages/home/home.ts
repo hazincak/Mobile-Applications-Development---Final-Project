@@ -39,12 +39,10 @@ export class HomePage implements OnInit {
 
   ngOnInit(): void {
     this.getSettings();
-    console.log(this.temperatureUnit)
   }
 
   ionViewDidEnter() {
     this.getSettings();
-    console.log(this.temperatureUnit)
   }
 
   onSettingsIconClick(){
@@ -76,8 +74,8 @@ export class HomePage implements OnInit {
   .then(() => {
     this.fetchData(this.city, this.countryCode, this.temperatureUnit);
   })
-  .catch((error) => {
-    console.log(error);
+  .catch(() => {
+
   })
   }
 

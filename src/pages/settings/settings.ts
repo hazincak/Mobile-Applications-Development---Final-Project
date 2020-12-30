@@ -43,7 +43,7 @@ export class SettingsPage implements OnInit {
 
   ngOnInit(): void {
     this.settingsForm = new FormGroup({
-      temperatureUnit: new FormControl(this.temperatureUnit, {}),
+      temperatureUnit: new FormControl(null, {}),
       city: new FormControl(null, {})
     });
   }
@@ -111,8 +111,8 @@ export class SettingsPage implements OnInit {
 
   async noDataAlert(){
     const alert = await this.alertCtrl.create({
-      title: 'No changes detected!',
-      subTitle: 'Nothing was saved!',
+      title: 'No changes were detected!',
+      subTitle: 'Nothing is saved!',
       buttons:['ok']
     });
     alert.present();
@@ -120,8 +120,8 @@ export class SettingsPage implements OnInit {
 
   async noCityAlert(){
     const alert = await this.alertCtrl.create({
-      title: 'No city selected!',
-      subTitle: "Galway was set for your location!",
+      title: 'No city was selected!',
+      subTitle: "Galway is set for your location!",
       buttons:['ok']
     });
     alert.present();

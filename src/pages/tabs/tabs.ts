@@ -35,7 +35,6 @@ export class TabsPage {
             }
 
    ionViewDidLoad() {
-
   }
 
    getBookmarksAmount(){

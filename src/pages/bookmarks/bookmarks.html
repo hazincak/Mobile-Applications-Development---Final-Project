@@ -6,7 +6,7 @@
 -->
 <ion-header>
   <ion-navbar>
-    <ion-title>bookmarks</ion-title>
+    <ion-title start>Bookmarks</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -22,13 +22,14 @@
       <ion-col col-md-6 offset-md-3>
         <ion-list *ngIf="bookmarks !== null">
           <ion-item-sliding *ngFor="let item of bookmarks; let i = index" [attr.data-index]="i">
-            <ion-item   text-wrap>
-              <img item-start style="width: 130px; height: 130px; border-radius: 20px;" src = {{item.urlToImage}}>
-                <h2>{{item.title}}</h2>
-                <p>{{item.description}}</p>
+            <ion-item color="secondary"  text-wrap>
+              <img (click)="onItemClick(item.url)" item-start style=" cursor: pointer; ;width: 130px; height: 100px; border-radius: 20px;" src = {{item.urlToImage}}>
+                <h2 (click)="onItemClick(item.url)" style=" cursor: pointer;">{{item.title}}</h2>
+                <p (click)="onItemClick(item.url)" style=" cursor: pointer;">{{item.description}}</p>
             </ion-item>
-            <ion-item-options side="right" >
-              <button (click)="onDeleteClick(i)" > <ion-icon style="width: 150%;" name="trash"></ion-icon>Delete</button>
+            <ion-item-options icon-center side="right" >
+              <button (click)="onDeleteClick(i)" > <ion-icon style="font-size: 50px;" name="trash"></ion-icon><p>DELETE</p></button>
+
             </ion-item-options>
           </ion-item-sliding>
         </ion-list>

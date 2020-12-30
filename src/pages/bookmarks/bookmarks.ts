@@ -28,19 +28,23 @@ export class BookmarksPage {
 
   ionViewDidEnter() {
     this.getBookmarks();
-    if(this.bookmarks == null){
-      this.bookmarks = [];
-    }
   }
 
   getBookmarks(){
     this.bookmarksStorageProvider.getBookmarks().then((data) => {
       this.bookmarks = data;
     }).then(() => {
-      if (this.bookmarks.length == 0){
-        this.bookmarks = null
+      if (this.bookmarks !== null){
+        if(this.bookmarks.length == 0){
+          this.bookmarks = null
+        }
       }
     })
+  }
+
+  onItemClick(url: string){
+    var win = window.open(url, '_blank');
+    win.focus();
   }
 
   onDeleteClick(removeIndex){

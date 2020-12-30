@@ -19,17 +19,17 @@
 
               <h1>Temperature units</h1>
 
-            <ion-item color="light">
+            <ion-item color="secondary">
               <ion-label>Standard</ion-label>
               <ion-radio value="standard" checked = "{{temperatureUnit === 'standard' ? true : false }}" ></ion-radio>
             </ion-item>
 
-            <ion-item color="light">
+            <ion-item color="secondary">
               <ion-label>Metric</ion-label>
               <ion-radio value="metric" checked = "{{temperatureUnit === 'metric' ? true : false }}"></ion-radio>
             </ion-item>
 
-            <ion-item color="light">
+            <ion-item color="secondary">
               <ion-label>Imperial</ion-label>
               <ion-radio value="imperial" checked = "{{temperatureUnit === 'imperial' ? true : false }}"></ion-radio>
             </ion-item>
@@ -41,16 +41,18 @@
           <h1>Location</h1>
           <ion-searchbar
             (ionInput)="findLocation()"
+            color="secondary"
             placeholder= "{{settingsSet ? city : 'Enter your city'}}"
             autocomplete= "on"
             formControlName="city"
             ></ion-searchbar>
-            <span *ngIf="cityErrorMessage" style="color: aqua;">{{ cityErrorMessage }}</span>
+
              <ion-list style="cursor: pointer;">
-              <ion-item color="light" *ngFor="let item of listOfCities" (click)="onCityClick(item)">
+              <ion-item color="secondary" *ngFor="let item of listOfCities" (click)="onCityClick(item)">
                 {{ item.name }} {{item.country}}
               </ion-item>
             </ion-list>
+            <span *ngIf="cityErrorMessage" style="color: aqua;">{{ cityErrorMessage }}</span>
         </ion-col>
       </ion-row>
       <ion-row>

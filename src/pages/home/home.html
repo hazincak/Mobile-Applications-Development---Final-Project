@@ -28,10 +28,10 @@
           </ion-col>
         </ion-row>
         <ion-row align-items-center >
-          <ion-col text-center >
+          <ion-col text-right >
             <img style="width: 120px;" src= "http://openweathermap.org/img/wn/{{fetchedWeatherData.weather[0]['icon']}}@2x.png" alt="Weather icon">
           </ion-col>
-          <ion-col>
+          <ion-col text-left>
             <h2 >{{fetchedWeatherData.main.temp}} {{getTemperatureUnit(temperatureUnit)}}</h2>
             <h5>Feels like {{fetchedWeatherData.main.feels_like}} {{getTemperatureUnit(temperatureUnit)}}</h5>
           </ion-col>
@@ -73,24 +73,24 @@
               <h2>{{item.author}}</h2>
               <p>{{item.publishedAt}}</p>
             </ion-item>
-            <img (click)="onItemClick(item.url)" src={{item.urlToImage}}/>
+            <img style="cursor: pointer;" (click)="onItemClick(item.url)" src={{item.urlToImage}}/>
             <ion-card-content>
-              <ion-card-title (click)="onItemClick(item.url)">
+              <ion-card-title style="cursor: pointer;" (click)="onItemClick(item.url)">
                 {{item.title}}
                 </ion-card-title>
-              <p (click)="onItemClick(item.url)">
+              <p style="cursor: pointer;" (click)="onItemClick(item.url)">
                 {{item.description}}
               </p>
             </ion-card-content>
             <ion-row text-center>
               <ion-col>
-                <button ion-button icon-start (click)="onBookmarksIconClick(item)">
+                <button color="dark" ion-button icon-start (click)="onBookmarksIconClick(item)">
                   <ion-icon name="add"></ion-icon>
                   <div>Bookmark</div>
                 </button>
               </ion-col>
               <ion-col>
-                <button ion-button icon-start (click)="onItemClick(item.url)">
+                <button color="dark" ion-button icon-start (click)="onItemClick(item.url)">
                   <ion-icon name="book"></ion-icon>
                   <div>Read article</div>
                 </button>
