@@ -12,9 +12,15 @@
 
 <ion-content padding>
   <ion-grid>
+    <ion-row  *ngIf="bookmarks === null" text-center>
+      <ion-col col-md-6 offset-md-3>
+          <ion-icon class="icon icon--large" name="ios-alert-outline"></ion-icon>
+          <p>No bookmarks stored</p>
+      </ion-col>
+    </ion-row>
     <ion-row>
       <ion-col col-md-6 offset-md-3>
-        <ion-list>
+        <ion-list *ngIf="bookmarks !== null">
           <ion-item-sliding *ngFor="let item of bookmarks; let i = index" [attr.data-index]="i">
             <ion-item   text-wrap>
               <img item-start style="width: 130px; height: 130px; border-radius: 20px;" src = {{item.urlToImage}}>

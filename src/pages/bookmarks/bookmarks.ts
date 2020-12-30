@@ -28,6 +28,7 @@ export class BookmarksPage {
 
   ionViewDidEnter() {
     this.getBookmarks();
+
   }
 
   getBookmarks(){
