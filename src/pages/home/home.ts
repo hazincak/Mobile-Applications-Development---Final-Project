@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ToastController, LoadingController, NavController } from 'ionic-angular';
 import { WeatherRequestProvider } from '../../providers/weather-request-provider/weather-request-provider';
 import { SettingsProvider } from '../../providers/settings-storage-provider/settings-storage-provider';
@@ -12,7 +12,7 @@ import { Observable } from 'rxjs/Observable';
 })
 
 
-export class HomePage {
+export class HomePage implements OnInit {
   settingsSet: boolean;
   dataLoaded: boolean = false;
 
@@ -37,20 +37,14 @@ export class HomePage {
 
   }
 
+  ngOnInit(): void {
+    this.getSettings();
+    console.log(this.temperatureUnit)
+  }
+
   ionViewDidEnter() {
-
-    this.settingsProvider.getSettings().then((data) => {
-
-        this.settingsSet = data.settingsSet;
-        this.city = data.city;
-        this.countryCode = data.countryCode;
-        this.temperatureUnit = data.temperatureUnit;
-
-    })
-    .then(() => {
-      this.fetchData(this.city, this.countryCode, this.temperatureUnit);
-    })
-    .catch(() => {})
+    this.getSettings();
+    console.log(this.temperatureUnit)
   }
 
   onSettingsIconClick(){
@@ -69,6 +63,24 @@ export class HomePage {
     loader.dismiss();
     });
   }
+
+  getSettings(){
+    this.settingsProvider.getSettings().then((data) => {
+
+      this.settingsSet = data.settingsSet;
+      this.city = data.city;
+      this.countryCode = data.countryCode;
+      this.temperatureUnit = data.temperatureUnit;
+
+  })
+  .then(() => {
+    this.fetchData(this.city, this.countryCode, this.temperatureUnit);
+  })
+  .catch((error) => {
+    console.log(error);
+  })
+  }
+
   onNewsButtonClick(){
     const loader = this.loadingCtrl.create({
       content: 'Loading news...',
@@ -91,26 +103,41 @@ export class HomePage {
     }
   }
 
-  getCardinals(degree: number){
-    if(degree >= 338 && degree <= 22){
-      return 'North'
-    }else if(degree >= 23 && degree <= 67){
-      return 'NorthEast'
-    }else if(degree >= 68 && degree <= 112){
-      return 'East'
-    }else if(degree >= 113 && degree <= 157){
-      return 'SouthEast'
-    }else if(degree >= 158 && degree <= 203){
-      return 'South'
-    }else if(degree >= 204 && degree <= 249){
-      return 'SouthWest'
-    }else if(degree >= 250 && degree <= 295){
-      return 'West'
-    }else if(degree >= 296 && degree <= 337){
-      return 'NorthWest'
+  getCardinals(deg: number){
+    if (deg>11.25 && deg<=33.75){
+      return "NNE";
+    }else if (deg>33.75 && deg<=56.25){
+      return "ENE";
+    }else if (deg>56.25 && deg<=78.75){
+      return "E";
+    }else if (deg>78.75 && deg<=101.25){
+      return "ESE";
+    }else if (deg>101.25 && deg<=123.75){
+      return "ESE";
+    }else if (deg>123.75 && deg<=146.25){
+      return "SE";
+    }else if (deg>146.25 && deg<=168.75){
+      return "SSE";
+    }else if (deg>168.75 && deg<=191.25){
+      return "S";
+    }else if (deg>191.25 && deg<=213.75){
+      return "SSW";
+    }else if (deg>213.75 && deg<=236.25){
+      return "SW";
+    }else if (deg>236.25 && deg<=258.75){
+      return "WSW";
+    }else if (deg>258.75 && deg<=281.25){
+      return "W";
+    }else if (deg>281.25 && deg<=303.75){
+      return "WNW";
+    }else if (deg>303.75 && deg<=326.25){
+      return "NW";
+    }else if (deg>326.25 && deg<=348.75){
+      return "NNW";
+    }else{
+      return "N";
     }
-    }
-
+  }
 
   getTemperatureUnit(temperatureUnit: string){
     switch(temperatureUnit){
@@ -143,7 +170,8 @@ export class HomePage {
   }
 
   rotateIcon(deg: number){
-    const styles = {'transform' : `rotate(${deg}deg)`};
-    return styles;
+      deg = deg + 180;
+      const styles = {'transform' : `rotate(${deg}deg)`};
+      return styles;
   }
 }

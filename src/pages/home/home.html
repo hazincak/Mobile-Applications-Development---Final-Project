@@ -24,33 +24,47 @@
       <ion-col col-md-6 offset-md-3>
         <ion-row>
           <ion-col text-center>
-            <h2>Weather for {{fetchedWeatherData.name}} ({{countryCode}}).</h2>
+            <h2>Weather for {{fetchedWeatherData.name}} ({{countryCode}})</h2>
           </ion-col>
         </ion-row>
         <ion-row align-items-center >
-          <ion-col text-right>
+          <ion-col >
             <img style="width: 120px;" src= "http://openweathermap.org/img/wn/{{fetchedWeatherData.weather[0]['icon']}}@2x.png" alt="Weather icon">
           </ion-col>
-          <ion-col >
-            <h2 style="display: inline;">{{fetchedWeatherData.main.temp}} {{getTemperatureUnit(temperatureUnit)}}</h2>
-            <h5>(Feels like {{fetchedWeatherData.main.feels_like}} {{getTemperatureUnit(temperatureUnit)}})</h5>
+          <ion-col>
+            <h2 >{{fetchedWeatherData.main.temp}} {{getTemperatureUnit(temperatureUnit)}}</h2>
+            <h5>Feels like {{fetchedWeatherData.main.feels_like}} {{getTemperatureUnit(temperatureUnit)}}</h5>
           </ion-col>
         </ion-row>
         <ion-row>
-          <ion-col col-6 text-center>
-            <h6>Description: {{fetchedWeatherData.weather[0].main}}</h6>
-            <h6>Humidity: {{fetchedWeatherData.main.humidity}}%</h6>
-            <h6>Visibilty: {{fetchedWeatherData.visibility/1000}}km</h6>
+          <ion-col text-center>
+            <h5>Temperature max:</h5>
+            <h6><ion-icon name="arrow-up"></ion-icon>&nbsp;{{fetchedWeatherData.main.temp_max}}&nbsp;{{getTemperatureUnit(temperatureUnit)}}</h6>
           </ion-col>
+          <ion-col text-center>
+            <h5>Temperature min:</h5>
+            <h6><ion-icon name="arrow-down"></ion-icon>&nbsp;{{fetchedWeatherData.main.temp_min}}&nbsp;{{getTemperatureUnit(temperatureUnit)}}</h6>
+          </ion-col>
+        </ion-row>
+        <hr>
+        <ion-row>
           <ion-col col-6 text-center >
-            <!-- <img style="width: 80px;" src="../../assets/imgs/compass.svg"> -->
-
-            <h6>Speed: {{fetchedWeatherData.wind.speed}} {{getSpeedUnit(temperatureUnit)}}</h6>
-            <h6>Direction: {{getCardinals(fetchedWeatherData.wind.deg)}} &nbsp; <ion-icon style="font-size: 30px;"  [ngStyle]="rotateIcon(fetchedWeatherData.wind.deg)" name="md-navigate"></ion-icon></h6>
+            <h6>Weather</h6>
+            <p><b>Description:</b> {{fetchedWeatherData.weather[0].description}}</p>
+            <p><b>Humidity:</b> {{fetchedWeatherData.main.humidity}}%</p>
+            <p><b>Visibilty:</b> {{fetchedWeatherData.visibility/1000}}km</p>
           </ion-col>
+          <ion-col col-6 text-center  >
+            <h6>Wind</h6>
+            <ion-icon style="font-size: 30px;"  [ngStyle]="rotateIcon(fetchedWeatherData.wind.deg)" name="md-navigate"></ion-icon>
+            <p><b>Speed:</b> {{fetchedWeatherData.wind.speed}} {{getSpeedUnit(temperatureUnit)}}</p>
+            <p><b>Direction:</b> {{getCardinals(fetchedWeatherData.wind.deg)}} &nbsp;</p>
+          </ion-col>
+          <hr>
         </ion-row>
       </ion-col>
     </ion-row>
+
     <ion-row *ngIf="fetchedNewsData">
       <ion-col col-md-6 offset-md-3>
         <ion-list>
