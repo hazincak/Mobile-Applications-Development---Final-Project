@@ -23,13 +23,14 @@
         <ion-list *ngIf="bookmarks !== null">
           <ion-item-sliding *ngFor="let item of bookmarks; let i = index" [attr.data-index]="i">
             <ion-item color="secondary"  text-wrap>
-              <img (click)="onItemClick(item.url)" item-start style=" cursor: pointer; ;width: 130px; height: 100px; border-radius: 20px;" src = {{item.urlToImage}}>
+              <ion-thumbnail item-start>
+                <img (click)="onItemClick(item.url)" item-start style=" cursor: pointer; " src = {{item.urlToImage}}>
+              </ion-thumbnail>
                 <h2 (click)="onItemClick(item.url)" style=" cursor: pointer;">{{item.title}}</h2>
                 <p (click)="onItemClick(item.url)" style=" cursor: pointer;">{{item.description}}</p>
             </ion-item>
             <ion-item-options icon-center side="right" >
-              <button (click)="onDeleteClick(i)" > <ion-icon style="font-size: 50px;" name="trash"></ion-icon><p>DELETE</p></button>
-
+              <button (click)="onDeleteClick(i)" > <ion-icon style="font-size: 40px;" name="trash"></ion-icon><p>DELETE</p></button>
             </ion-item-options>
           </ion-item-sliding>
         </ion-list>

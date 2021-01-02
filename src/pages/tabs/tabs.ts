@@ -20,7 +20,6 @@ import { SettingsPage } from '../settings/settings';
 export class TabsPage {
 
   tab1Root = HomePage;
-  tab2Root = SettingsPage;
   tab3Root = BookmarksPage;
 
   bookmarksAmount;

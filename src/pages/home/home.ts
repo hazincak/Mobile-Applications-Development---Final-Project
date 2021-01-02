@@ -23,6 +23,8 @@ export class HomePage implements OnInit {
 
   fetchedNewsData: Observable<any>;
   articles: any;
+  articlesTotal: number;
+  pageSize: number = 5;
 
 
 
@@ -90,13 +92,27 @@ export class HomePage implements OnInit {
   })
   }
 
+  // onNewsButtonClick(){
+  //   const loader = this.loadingCtrl.create({
+  //     content: 'Loading news...',
+  //   });
+  //   loader.present();
+  //   this.newsRequestProvider.fetchNewsData(this.countryCode).subscribe(data => {
+  //     this.fetchedNewsData = data.articles;
+  //     console.log(data);
+  //   })
+  //   loader.dismiss();
+  // }
+
   onNewsButtonClick(){
     const loader = this.loadingCtrl.create({
       content: 'Loading news...',
     });
     loader.present();
-    this.newsRequestProvider.fetchNewsData(this.countryCode).subscribe(data => {
+    this.newsRequestProvider.fetchNewsData(this.countryCode, this.pageSize).subscribe(data => {
+
       this.fetchedNewsData = data.articles;
+      console.log(data);
     })
     loader.dismiss();
   }
@@ -183,4 +199,17 @@ export class HomePage implements OnInit {
       const styles = {'transform' : `rotate(${deg}deg)`};
       return styles;
   }
+
+  doInfinite(infiniteScroll){
+    this.pageSize+=5;
+    this.newsRequestProvider.fetchNewsData(this.countryCode, this.pageSize).subscribe(data => {
+
+     setTimeout(() => {
+      this.fetchedNewsData = data.articles;
+      infiniteScroll.complete();
+     }, 1000)
+    })
+    }
+
 }
+
