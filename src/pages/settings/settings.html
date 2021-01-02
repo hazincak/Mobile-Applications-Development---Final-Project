@@ -16,9 +16,7 @@
       <ion-row>
         <ion-col col-md-6 offset-md-3>
           <ion-list  radio-group formControlName="temperatureUnit">
-
               <h1>Temperature units</h1>
-
             <ion-item color="secondary">
               <ion-label>Standard</ion-label>
               <ion-radio value="standard" checked = "{{temperatureUnit === 'standard' ? true : false }}" ></ion-radio>
@@ -41,7 +39,6 @@
           <h1>Location</h1>
           <ion-searchbar
             (ionInput)="findLocation()"
-            color="secondary"
             placeholder= "{{settingsSet ? city : 'Enter your city'}}"
             autocomplete= "on"
             formControlName="city"

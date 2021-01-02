@@ -4,7 +4,6 @@ import { AlertController, IonicPage, LoadingController, NavController, NavParams
 import { Observable } from 'rxjs/Observable';
 import { SettingsProvider } from '../../providers/settings-storage-provider/settings-storage-provider';
 import { WeatherRequestProvider } from '../../providers/weather-request-provider/weather-request-provider';
-import { HomePage } from '../home/home';
 
 /**
  * Generated class for the SettingsPage page.
@@ -44,24 +43,39 @@ export class SettingsPage implements OnInit {
   ngOnInit(): void {
     this.settingsForm = new FormGroup({
       temperatureUnit: new FormControl(null, {}),
-      city: new FormControl(null, {})
+      city: new FormControl(null , {})
     });
   }
 
   ionViewDidLoad() {
+    this.cityValidated = false;
     this.settingsProvider.getSettings().then((data) => {
-      this.settingsSet = data.settingsSet;
-      this.city = data.city;
-      this.temperatureUnit = data.temperatureUnit;
-  })
-  .catch(()=>{
-  })
+      this.setValues(data);
+    })
+    .then(() => {
+      this.setForm();
+      this.cityValidated = true
+    })
+    .catch(()=>{
+    })
   }
 
   ionViewWillLeave(){
     if(this.settingsForm.untouched){
       this.noDataAlert();
     }
+  }
+
+  setValues(data: any){
+    this.settingsSet = data.settingsSet;
+    this.city = data.city;
+    this.countryCode = data.countryCode;
+    this.temperatureUnit = data.temperatureUnit;
+  }
+
+  setForm(){
+    this.settingsForm.controls.city.setValue(this.city);
+    this.settingsForm.controls.temperatureUnit.setValue(this.temperatureUnit);
   }
 
   onSubmit(){
@@ -77,7 +91,9 @@ export class SettingsPage implements OnInit {
       this.settingsProvider.settingsSet = true;
       this.settingsProvider.storeSettings(this.settingsForm.controls.city.value, "IE", this.settingsForm.controls.temperatureUnit.value);
     }else if(this.settingsForm.controls.city.dirty && this.city !== null && this.cityValidated){
-      this.navCtrl.push(HomePage);
+      this.settingsProvider.settingsSet = true;
+      this.settingsProvider.storeSettings(this.settingsForm.controls.city.value, this.countryCode, this.settingsForm.controls.temperatureUnit.value);
+    }else if(this.cityValidated && this.settingsForm.controls.city.untouched){
       this.settingsProvider.settingsSet = true;
       this.settingsProvider.storeSettings(this.settingsForm.controls.city.value, this.countryCode, this.settingsForm.controls.temperatureUnit.value);
     }else if(!this.cityValidated){
@@ -87,6 +103,7 @@ export class SettingsPage implements OnInit {
   }
 
   findLocation(){
+      this.cityValidated = false
       let cityInputField = this.settingsForm.controls.city.value;
       this.weatherRequestProvider.fetchCities(cityInputField)
       .subscribe(data => {

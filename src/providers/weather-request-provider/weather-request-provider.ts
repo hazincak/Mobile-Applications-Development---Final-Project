@@ -15,7 +15,7 @@ export class WeatherRequestProvider {
   }
 
   fetchWeatherData(city: string, countryCode: string, temperatureUnit: string){
-    return this.http.get(`http://api.openweathermap.org/data/2.5/weather?q=${city},${countryCode}&units=${temperatureUnit}&appid=0d8aa15d3feaefc17582393df3b73903`);
+    return this.http.get<any>(`http://api.openweathermap.org/data/2.5/weather?q=${city},${countryCode}&units=${temperatureUnit}&appid=0d8aa15d3feaefc17582393df3b73903`);
   }
 
   fetchCities(city: string){

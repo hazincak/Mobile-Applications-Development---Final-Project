@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ToastController, LoadingController, NavController } from 'ionic-angular';
+import { ToastController, LoadingController, NavController, AlertController } from 'ionic-angular';
 import { WeatherRequestProvider } from '../../providers/weather-request-provider/weather-request-provider';
 import { SettingsProvider } from '../../providers/settings-storage-provider/settings-storage-provider';
 import { SettingsPage } from '../settings/settings';
@@ -32,12 +32,13 @@ export class HomePage implements OnInit {
               private newsRequestProvider: NewsRequestProvider,
               private bookmarksStorageProvider: BookmarksStorageProvider,
               private loadingCtrl: LoadingController,
-              public toastCtrl: ToastController
+              public toastCtrl: ToastController,
+              public alertCtrl: AlertController
                ) {
 
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.getSettings();
   }
 
@@ -50,21 +51,28 @@ export class HomePage implements OnInit {
   }
 
   fetchData(city: string, countryCode: string, temperatureUnit: string){
-    const loader = this.loadingCtrl.create({
-      content: 'Fetching data...',
-    });
-    loader.present();
     this.weatherRequestProvider.fetchWeatherData(city, countryCode ,temperatureUnit).subscribe(data => {
     this.fetchedWeatherData = data;
-    console.log(this.fetchedWeatherData)
     this.dataLoaded= true;
-    loader.dismiss();
-    });
+    },
+    error => {
+      if(error.status === 404){
+        const alert = this.alertCtrl.create({
+          title: 'Invalid Data',
+          subTitle: 'Please enter a valid city',
+          buttons: ['OK']
+        });
+        alert.present();
+      }
+    })
   }
 
   getSettings(){
+    const loader = this.loadingCtrl.create({
+      content: 'Loading data...',
+    });
+    loader.present();
     this.settingsProvider.getSettings().then((data) => {
-
       this.settingsSet = data.settingsSet;
       this.city = data.city;
       this.countryCode = data.countryCode;
@@ -74,8 +82,11 @@ export class HomePage implements OnInit {
   .then(() => {
     this.fetchData(this.city, this.countryCode, this.temperatureUnit);
   })
+  .then(() => {
+    loader.dismiss();
+  })
   .catch(() => {
-
+    loader.dismiss();
   })
   }
 
