@@ -38,15 +38,15 @@
         </ion-row>
         <ion-row>
           <ion-col text-center>
-            <h5>Temperature max:</h5>
+            <h5>Temperature&nbsp;max:</h5>
             <h6><ion-icon name="arrow-up"></ion-icon>&nbsp;{{fetchedWeatherData.main.temp_max}}&nbsp;{{getTemperatureUnit(temperatureUnit)}}</h6>
           </ion-col>
           <ion-col text-center>
-            <h5>Temperature min:</h5>
+            <h5>Temperature&nbsp;min:</h5>
             <h6><ion-icon name="arrow-down"></ion-icon>&nbsp;{{fetchedWeatherData.main.temp_min}}&nbsp;{{getTemperatureUnit(temperatureUnit)}}</h6>
           </ion-col>
         </ion-row>
-        <hr style="background-color: aqua;">
+        <hr style="background-color: white;">
         <ion-row>
           <ion-col col-6 text-center >
             <h6>Weather</h6>
@@ -64,6 +64,24 @@
       </ion-col>
     </ion-row>
 
+    <ion-row>
+      <ion-col col-md-6 offset-md-3>
+        <hr style="background-color: aqua;" >
+        <h4>Total Articles:</h4>
+        <ion-item color="secondary">
+        <ion-label color="primary">Displaying:</ion-label>
+          <ion-select
+            [(ngModel)]="articlesDisplayed"
+            (ionChange)="onChange($event)"
+            multiple="false"
+            >
+            <ion-option value="5">5</ion-option>
+            <ion-option value="10">10</ion-option>
+            <ion-option value="all">All</ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
     <ion-row *ngIf="fetchedNewsData">
       <ion-col col-md-6 offset-md-3>
         <ion-list>
@@ -96,41 +114,6 @@
               </ion-col>
             </ion-row>
           </ion-card>
-          <ion-infinite-scroll (ionInfinite)="(doInfinite($event))">
-            <ion-infinite-scroll-content
-            loadingSpinner="bubbles"
-            loadingText="Loading more data...">
-            ></ion-infinite-scroll-content>
-          </ion-infinite-scroll>
-          <!-- <ion-card color="secondary" *ngFor="let item of fetchedNewsData">
-            <ion-item color="secondary">
-              <h2>{{item.author}}</h2>
-              <p>{{item.publishedAt}}</p>
-            </ion-item>
-            <img style="cursor: pointer;" (click)="onItemClick(item.url)" src={{item.urlToImage}}/>
-            <ion-card-content>
-              <ion-card-title style="cursor: pointer;" (click)="onItemClick(item.url)">
-                {{item.title}}
-                </ion-card-title>
-              <p style="cursor: pointer;" (click)="onItemClick(item.url)">
-                {{item.description}}
-              </p>
-            </ion-card-content>
-            <ion-row text-center>
-              <ion-col>
-                <button color="dark" ion-button icon-start (click)="onBookmarksIconClick(item)">
-                  <ion-icon name="add"></ion-icon>
-                  <div>Bookmark</div>
-                </button>
-              </ion-col>
-              <ion-col>
-                <button color="dark" ion-button icon-start (click)="onItemClick(item.url)">
-                  <ion-icon name="book"></ion-icon>
-                  <div>Read article</div>
-                </button>
-              </ion-col>
-            </ion-row>
-          </ion-card> -->
         </ion-list>
       </ion-col>
     </ion-row>

@@ -23,10 +23,7 @@ export class HomePage implements OnInit {
 
   fetchedNewsData: Observable<any>;
   articles: any;
-  articlesTotal: number;
-  pageSize: number = 5;
-
-
+  articlesDisplayed: number = 5
 
   constructor(public navCtrl: NavController,
               private settingsProvider: SettingsProvider,
@@ -52,7 +49,7 @@ export class HomePage implements OnInit {
     this.navCtrl.push(SettingsPage);
   }
 
-  fetchData(city: string, countryCode: string, temperatureUnit: string){
+  fetchWeatherData(city: string, countryCode: string, temperatureUnit: string){
     this.weatherRequestProvider.fetchWeatherData(city, countryCode ,temperatureUnit).subscribe(data => {
     this.fetchedWeatherData = data;
     this.dataLoaded= true;
@@ -82,7 +79,7 @@ export class HomePage implements OnInit {
 
   })
   .then(() => {
-    this.fetchData(this.city, this.countryCode, this.temperatureUnit);
+    this.fetchWeatherData(this.city, this.countryCode, this.temperatureUnit);
   })
   .then(() => {
     loader.dismiss();
@@ -92,29 +89,36 @@ export class HomePage implements OnInit {
   })
   }
 
-  // onNewsButtonClick(){
-  //   const loader = this.loadingCtrl.create({
-  //     content: 'Loading news...',
-  //   });
-  //   loader.present();
-  //   this.newsRequestProvider.fetchNewsData(this.countryCode).subscribe(data => {
-  //     this.fetchedNewsData = data.articles;
-  //     console.log(data);
-  //   })
-  //   loader.dismiss();
-  // }
-
   onNewsButtonClick(){
+    this.fetchNewsData();
+  }
+
+  onChange(){
+    this.fetchNewsData();
+  }
+
+  fetchNewsData(){
     const loader = this.loadingCtrl.create({
       content: 'Loading news...',
     });
     loader.present();
-    this.newsRequestProvider.fetchNewsData(this.countryCode, this.pageSize).subscribe(data => {
-
+    this.newsRequestProvider.fetchNewsData(this.countryCode, this.articlesDisplayed).subscribe(data => {
       this.fetchedNewsData = data.articles;
       console.log(data);
-    })
+    },
+    error => {
+      if(error.status === 429){
+        const alert = this.alertCtrl.create({
+          title: 'You have exceeded maximum number of requests allowed for an user',
+          subTitle: 'Please try later.',
+          buttons: ['OK']
+        });
+        alert.present();
+      }
+    }
+    )
     loader.dismiss();
+
   }
 
   getSpeedUnit(temperatureUnit: string){
@@ -199,17 +203,6 @@ export class HomePage implements OnInit {
       const styles = {'transform' : `rotate(${deg}deg)`};
       return styles;
   }
-
-  doInfinite(infiniteScroll){
-    this.pageSize+=5;
-    this.newsRequestProvider.fetchNewsData(this.countryCode, this.pageSize).subscribe(data => {
-
-     setTimeout(() => {
-      this.fetchedNewsData = data.articles;
-      infiniteScroll.complete();
-     }, 1000)
-    })
-    }
 
 }
 

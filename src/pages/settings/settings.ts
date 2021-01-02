@@ -61,7 +61,6 @@ export class SettingsPage implements OnInit {
   }
 
   ionViewWillLeave(){
-    console.log(this.settingsForm)
     if(this.settingsForm.pristine){
       this.noDataAlert();
     }
