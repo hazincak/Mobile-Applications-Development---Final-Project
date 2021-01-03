@@ -34,11 +34,15 @@ export class TabsPage {
             }
 
    ionViewDidLoad() {
+     this.getBookmarksAmount();
   }
 
    getBookmarksAmount(){
     this.bookmarksStorageProvider.getBookmarks().then((data) => {
-      this.bookmarksAmount = data.length;
+      if(data){
+        this.bookmarksAmount = data.length;
+      }
+
     })
 
   }

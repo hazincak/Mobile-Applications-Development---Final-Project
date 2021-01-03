@@ -23,7 +23,8 @@ export class HomePage implements OnInit {
 
   fetchedNewsData: Observable<any>;
   articles: any;
-  articlesDisplayed: number = 5
+  articlesDisplayed: number = 5;
+  totalResults: number;
 
   constructor(public navCtrl: NavController,
               private settingsProvider: SettingsProvider,
@@ -104,6 +105,7 @@ export class HomePage implements OnInit {
     loader.present();
     this.newsRequestProvider.fetchNewsData(this.countryCode, this.articlesDisplayed).subscribe(data => {
       this.fetchedNewsData = data.articles;
+      this.totalResults = data.totalResults;
       console.log(data);
     },
     error => {

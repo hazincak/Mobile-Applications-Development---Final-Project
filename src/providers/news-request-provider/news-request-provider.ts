@@ -18,8 +18,5 @@ export class NewsRequestProvider {
     return this.http.get<any>(`https://newsapi.org/v2/top-headlines?country=${country}&pageSize=${pageSize}&apiKey=47c2f415725e4a94b8c8bd895cc09596`)
  }
 
-  // fetchNewsData(country: string){
-  //    return this.http.get<any>(`https://newsapi.org/v2/top-headlines?country=${country}&pageSize=5&apiKey=47c2f415725e4a94b8c8bd895cc09596`)
-  // }
 
 }

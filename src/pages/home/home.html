@@ -64,12 +64,11 @@
       </ion-col>
     </ion-row>
 
-    <ion-row>
-      <ion-col col-md-6 offset-md-3>
-        <hr style="background-color: aqua;" >
-        <h4>Total Articles:</h4>
+    <ion-row *ngIf="fetchedNewsData">
+      <ion-col padding col-md-6 offset-md-3>
+        <h3 text-center>Total News Stories from {{countryCode}}: {{totalResults}}</h3>
         <ion-item color="secondary">
-        <ion-label color="primary">Displaying:</ion-label>
+        <ion-label color="primary">Display:</ion-label>
           <ion-select
             [(ngModel)]="articlesDisplayed"
             (ionChange)="onChange($event)"
@@ -77,7 +76,7 @@
             >
             <ion-option value="5">5</ion-option>
             <ion-option value="10">10</ion-option>
-            <ion-option value="all">All</ion-option>
+            <ion-option value="{{totalResults}}">All</ion-option>
           </ion-select>
         </ion-item>
       </ion-col>
