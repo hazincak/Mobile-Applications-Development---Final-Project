@@ -1,4 +1,4 @@
-# Mobile-Applications-Development---Final-Project
+# Ionic Weather & News Reader
 
 ## Description
 
